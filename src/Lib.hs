@@ -19,11 +19,7 @@ import System.Random
 import Control.Monad.Trans
 import Control.Monad.Trans.State
 import qualified Control.Monad.State as S
-
-import qualified Data.List as L
-
-import Control.Monad.Identity
-import Data.Maybe
+import Rand
 
 
 
@@ -42,7 +38,7 @@ data Chapter = Chapter {
 
 
 csvFilePath :: FilePath
-csvFilePath = "/Users/homam/Downloads/babelbay/final.csv"
+csvFilePath = "./final.csv"
 
 
 parseCSV :: String -> [[String]]
@@ -70,83 +66,75 @@ someFunc = do
   file <- readFile csvFilePath
   let chapters = toChapters file
   let oneChapter = head chapters
-  let questions = []
-  print $ map (toCFlashcard "es" "en" questions) $ cards $ head chapters
-
-
--- rand :: (Random a, RandomGen g, S.MonadState g m) => a -> a -> m a
--- rand :: (Num b, RandomGen s, Random b, S.MonadState s m) => m b
--- rand lo hi = do
---   g <- S.get
---   let  (i, g') = randomR (lo, hi) g
---   S.put g
---   return i
-
--- randomFlashcards :: StdGen -> Chapter -> Flashcard -> (StdGen, [Flashcard])
--- randomFlashcards g chapter fc =
---   let fcindex = cardIndex fc
---       cards' = filter ((/= fcindex) . cardIndex) $ cards chapter
---   in _
---
-
-
-
+  let questions = cards oneChapter
+  g <- newStdGen
+  let (cs, _) = runEval g $ mapM (toCFlashcard "es" "en" questions) $ cards $ head chapters
+  putStrLn $ showTopElement $ collElement "cards" $ map cFlashcardToXml cs
 
 
 data CFlashcard = CFlashcard {
-      question :: String
+      cflashCardIndex :: Integer
+    , question :: String
     , answer :: String
+    , quiz :: [String]
   } deriving Show
 
+data CChapter = CChapter {
+      cchapterIndex :: Integer
+    , ctitle :: String
+    , ccards :: [CFlashcard]
+}
 
 
-toCFlashcard :: Language -> Language -> [String] -> Flashcard -> CFlashcard
-toCFlashcard native target questions (Flashcard index dic) =
+
+toCFlashcard :: (RandomGen g, S.MonadState g m) => Language -> Language -> [Flashcard] -> Flashcard -> m CFlashcard
+toCFlashcard native target questions (Flashcard index dic) = do
   let answer = dic M.! native
       question = dic M.! target
-  in  CFlashcard {question = question, answer = answer}
+  quiz <- (question :) . map ((M.! target) . fcDic) . take 3 <$> randomize (filter ((/= index) . cardIndex) questions)
+  return CFlashcard {cflashCardIndex = index, question = question, answer = answer, quiz = quiz}
 
 
-
-randomize :: (RandomGen g, S.MonadState g m) => [b] -> m [b]
-randomize bs = do
-
-  rs <- mrand 10 (1::Integer) (10::Integer)
-
-  return $ map fst $ L.sortOn snd (bs `zip` rs)
+toCChapter :: (RandomGen g, S.MonadState g m) => Language -> Language -> Chapter -> m CChapter
+toCChapter = undefined
 
 
-type Eval a g =  StateT (g Identity) a
+---
 
-runEval :: (RandomGen g) => g -> StateT g Identity a -> (a, g)
-runEval g f = runIdentity $ runStateT f g
+xmlDOM :: String -> String
+xmlDOM txt = showTopElement $ Element
+    (unqual "root")
+    []
+    [ Elem $ Element
+      (unqual "element")
+      []
+      [Text $ CData CDataText txt Nothing]
+      Nothing
+    ]
+    Nothing
 
-rand :: (RandomGen g, Random a, S.MonadState g m) => a -> a -> m a
-rand lo hi = do
-  g <- S.get
-  let (i, g') = randomR (lo, hi) g
-  S.put g'
-  return i
+textElement :: String -> String -> Element
+textElement name content = Element
+  (unqual name)
+  []
+  [
+    Text $ CData CDataText content Nothing
+  ]
+  Nothing
 
-mrand :: (RandomGen g, Random a, S.MonadState g m) => Int -> a -> a -> m [a]
-mrand howMany lo hi = replicateM howMany $ rand lo hi
+collElement :: String -> [Element] -> Element
+collElement name children = Element
+  (unqual name)
+  []
+  (map Elem children)
+  Nothing
 
-duck :: IO ()
-duck = do
-    g <- newStdGen
-    print $ runEval g (mrand 10 (1::Integer) (10::Integer))
-
---
-
--- runEval' :: (RandomGen g) => g -> StateT g Maybe a -> (a, g)
--- runEval' g f = fromJust $ runStateT f g
-
--- rand :: (RandomGen g, Random a, S.MonadState g m) => a -> a -> m a
--- rand lo hi = do
---   g <- S.get
---   let (i, g') = randomR (lo, hi) g
---   S.put g'
---   return i
---
--- mrand :: (RandomGen g, Random a, S.MonadState g m) => a -> a -> m [a]
--- mrand lo hi = replicateM 10 $ rand lo hi
+cFlashcardToXml :: CFlashcard -> Element
+cFlashcardToXml card = Element
+  (unqual "flashCard")
+  []
+  [
+      Elem $ textElement "FCQuestion" (question card)
+    , Elem $ textElement "FCAnswer" (question card)
+  ]
+  Nothing
