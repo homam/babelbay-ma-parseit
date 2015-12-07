@@ -1,20 +1,13 @@
 {-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}
 
-module Lib
-    (
-      someFunc,
-      csvFilePath,
-      parseCSV,
-      toChapters,
-      Flashcard,
-      Chapter,
-      Language,
-      Dic
-    ) where
+module Lib (
+    someFunc
+  , csvFilePath
+) where
 
 import Prelude hiding (words)
 import qualified Data.Map as M
-import Data.List.Split (splitOn, splitWhen)
+
 
 import Text.XML.Light
 import System.Random
@@ -22,6 +15,7 @@ import Control.Monad.Trans
 import Control.Monad.Trans.State
 import qualified Control.Monad.State as S
 import Rand
+import CSVParsers
 
 
 import qualified Data.ByteString.Lazy as BL
@@ -31,52 +25,18 @@ import Data.Either
 
 
 
-type Language = String
-type Dic = M.Map Language String
-data Flashcard = Flashcard {
-      cardIndex :: Integer
-    , fcDic:: Dic
-  } deriving Show
-data Chapter = Chapter {
-      chapterIndex :: Integer
-    , dic :: Dic
-    , cards :: [Flashcard]
-  } deriving Show
-
-
-
 csvFilePath :: FilePath
 csvFilePath = "./final.csv"
 
-
-parseCSV :: String -> [[String]]
-parseCSV = map (splitOn ",") . lines
-
-
-toChapter :: [[String]] -> Integer -> Chapter
-toChapter matrix index = Chapter index (toDic $ drop 1 $ head matrix) (map toFlashcard $ drop 1 matrix)
-
-toFlashcard :: [String] -> Flashcard
-toFlashcard list = Flashcard (read $ head list) (toDic $ drop 1 list)
-
-toDic :: [String] -> M.Map Language String
-toDic list = M.fromList $ ["en","ar","fr","de","ru","es"] `zip` list
-
--- @file@ is the full content of a CSV file
-toChapters :: String -> [Chapter]
-toChapters file =
-  let csv = parseCSV file
-      schapters = drop 1 $ splitWhen ((== "") . head) csv
-  in zipWith toChapter schapters [1 ..]
 
 someFunc :: IO ()
 someFunc = do
   file <- readFile csvFilePath
   let chapters = toChapters file
   let oneChapter = head chapters
-  let questions = cards oneChapter
+  let questions = csvChapterCards oneChapter
   g <- newStdGen
-  let (cs, _) = runEval g $ mapM (toCFlashcard "es" "en" questions) $ cards $ head chapters
+  let (cs, _) = runEval g $ mapM (toCFlashcard "es" "en" questions) $ csvChapterCards $ head chapters
   putStrLn $ showTopElement $ collElement "cards" $ map cFlashcardToXml cs
 
 
@@ -114,10 +74,12 @@ data CCourseIntroFC = CCourseIntroFC {
 
 
 toCFlashcard :: (RandomGen g, S.MonadState g m) => Language -> Language -> [Flashcard] -> Flashcard -> m CFlashcard
-toCFlashcard native target questions (Flashcard index dic) = do
-  let answer = dic M.! native
+toCFlashcard native target questions flashcard = do
+  let dic = csvFCDic flashcard
+      index = csvFCIndex flashcard
+      answer = dic M.! native
       question = dic M.! target
-  quiz <- (question :) . map ((M.! target) . fcDic) . take 3 <$> randomize (filter ((/= index) . cardIndex) questions)
+  quiz <- (question :) . map ((M.! target) . csvFCDic) . take 3 <$> randomize (filter ((/= index) . csvFCIndex) questions)
   return CFlashcard {cflashCardIndex = index, question = question, answer = answer, quiz = quiz}
 
 
@@ -127,12 +89,75 @@ toCChapter = undefined
 
 ---
 
+type DicOf a = M.Map Language a
 
-data CourseIntroFlashcard = CourseIntroFlashcard {
-      ciFCQuestion :: Dic
-    , ciFcShortAns :: Dic
-    , ciFCLongAns  :: Dic
+data CSVCourseIntro = CSVCourseIntro {
+    csvCourseIntroTitle :: Dic
+  , csvCourseIntroFC1 :: CSVCourseIntroFlashcard String
+  , csvCourseIntroFC2 :: CSVCourseIntroFlashcard [String]
 } deriving Show
+
+data CSVCourseIntroFlashcard a = CSVCourseIntroFlashcard {
+    csvCiFcQuestion :: Dic
+  , csvCiFcShortAns :: Dic
+  , csvCiFcLongAns  :: DicOf a
+} deriving Show
+
+emptyCsvCourseIntroFlashcard = CSVCourseIntroFlashcard {
+    csvCiFcQuestion = M.empty
+  , csvCiFcShortAns = M.empty
+  , csvCiFcLongAns = M.empty
+}
+
+emptyCsvCourseIntro = CSVCourseIntro {
+    csvCourseIntroTitle = M.empty
+  , csvCourseIntroFC1 = emptyCsvCourseIntroFlashcard
+  , csvCourseIntroFC2 = emptyCsvCourseIntroFlashcard
+}
+
+duck :: IO ()
+duck = do
+  csvData <- BL.readFile "./content/en-Table 1.csv"
+  let xs = go emptyCsvCourseIntro (decode NoHeader csvData)
+  write xs
+  where
+    write :: Either String CSVCourseIntro -> IO ()
+    write (Left err) = putStrLn err
+    write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
+
+    fieldMap v = M.fromList [
+          ("1-title", \ val -> v {csvCourseIntroTitle = val} ) -- courseTitle
+        , ("intro_title", \ val -> v {csvCourseIntroTitle = val})
+        , ("intro_fc-1_q", \ val ->
+          updateFC1 (\ fc -> fc {csvCiFcQuestion = val})
+          -- let fc = csvCourseIntroFC1 v
+          --     fc' = fc {csvCiFcQuestion = val}
+          -- in
+          -- v { csvCourseIntroFC1 = fc' }
+        )
+        , ("intro_fc-1_a_short", \ val ->
+          let fc = csvCourseIntroFC1 v
+              fc' = fc {csvCiFcShortAns = val}
+          in
+          v { csvCourseIntroFC1 = fc' })
+        , ("intro_fc-1_a_long", \ val ->
+          let fc = csvCourseIntroFC1 v
+              fc' = fc {csvCiFcLongAns = val}
+          in
+          v { csvCourseIntroFC1 = fc' })
+        -- , ("intro_fc-1_a_long", \ val -> v {csvCiFcLongAns = val})
+      ] where
+        updateFC1 f =
+          let fc = csvCourseIntroFC1 v
+              fc' = f fc
+          in
+          v { csvCourseIntroFC1 = fc' }
+
+    go _ (Left err) = Left err
+    go intro (Right v) = V.foldM (\ intro' (xs :: [String]) -> do
+        let f = M.lookup (xs !! 1) (fieldMap intro')
+        return $ maybe intro' ($ M.fromList $ ["en","es","fr","de","ru","ar"] `zip` drop 2 xs) f
+        ) intro v
 
 
 duck2 :: IO ()
@@ -145,7 +170,7 @@ duck2 = do
     write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
 
     go _ (Left err) = Left err
-    go intro (Right v) = V.foldM (\ intro' (xs :: [String]) -> do
+    go intro (Right v) = V.foldM (\ intro' (xs :: [String]) ->
         -- print xs
         -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
         if "1-title" == xs !! 1 then
