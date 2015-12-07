@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}
+
 module Lib
     (
       someFunc,
@@ -20,6 +22,12 @@ import Control.Monad.Trans
 import Control.Monad.Trans.State
 import qualified Control.Monad.State as S
 import Rand
+
+
+import qualified Data.ByteString.Lazy as BL
+import Data.Csv
+import qualified Data.Vector as V
+import Data.Either
 
 
 
@@ -85,6 +93,24 @@ data CChapter = CChapter {
     , ccards :: [CFlashcard]
 }
 
+data CCourse = CCourse {
+      courseId :: Integer
+    , ccourseKey :: String
+    , ccourseIntro :: CCourseIntro
+}
+
+data CCourseIntro = CCourseIntro {
+      ccourseIntroTitle :: String
+    , ccourseIntroIntroTitle :: String
+    , ccourseIntroFCs :: [CCourseIntroFC]
+} deriving Show
+
+data CCourseIntroFC = CCourseIntroFC {
+      ccourseIntroFCQuestion :: String
+    , ccourseIntroFCShortAnswer :: String
+    , ccourseIntroFCLongAnswer :: [String]
+} deriving Show
+
 
 
 toCFlashcard :: (RandomGen g, S.MonadState g m) => Language -> Language -> [Flashcard] -> Flashcard -> m CFlashcard
@@ -97,6 +123,37 @@ toCFlashcard native target questions (Flashcard index dic) = do
 
 toCChapter :: (RandomGen g, S.MonadState g m) => Language -> Language -> Chapter -> m CChapter
 toCChapter = undefined
+
+
+---
+
+
+data CourseIntroFlashcard = CourseIntroFlashcard {
+      ciFCQuestion :: Dic
+    , ciFcShortAns :: Dic
+    , ciFCLongAns  :: Dic
+} deriving Show
+
+
+duck2 :: IO ()
+duck2 = do
+  csvData <- BL.readFile "./content/en-Table 1.csv"
+  let xs = go CCourseIntro {ccourseIntroTitle = "", ccourseIntroIntroTitle = "", ccourseIntroFCs = []} (decode NoHeader csvData)
+  write xs
+  where
+    write (Left err) = putStrLn err
+    write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
+
+    go _ (Left err) = Left err
+    go intro (Right v) = V.foldM (\ intro' (xs :: [String]) -> do
+        -- print xs
+        -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
+        if "1-title" == xs !! 1 then
+          return $ intro' {ccourseIntroTitle = xs !! 2}
+        else
+          return intro' -- $ xs ++ ys
+        ) intro v
+
 
 
 ---

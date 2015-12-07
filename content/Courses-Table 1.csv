@@ -1,0 +1,514 @@
+File ID,ENGLISH,ARABIC,FRENCH,GERMAN,RUSSIAN,SPANISH
+,Greetings,Al tahiya,Formules de politesse,Begrüßung,Privetstviya,Saludos
+1,Greeting,Al tahiya,Salutation,Begrüßung,Privetstviye,Saludo
+2,Hello,Marhaban,Bonjour,Hallo,Zdravstvuyte,Hola
+3,How are you?,Kaifa halok?,Comment allez-vous ?,Wie geht es Ihnen? ,Kak dela?,¿Qué tal estás?
+4,"I am fine, thank you.","Ana bekhairen, Shukran lak.","Je vais bien, merci.",Gut danke,"Vse v poryadke, spasibo.","Estoy bien, gracias."
+5,And you?,Wa ant?,Et vous ?,Und Ihnen?,A u vas?,¿Y tú?
+6,My name is Roxanne,Esmi Roxanne ,Je m'appelle Roxanne,Mein Name ist Roxanne,Menya zovut Roxanne,Me llamo Roxanne
+7,What is your name?,Ma howa Esmok?,Comment vous appelez-vous ?,Wie heißen Sie?,Kak vas zovut?,¿Cómo te llamas?
+8,My name is Christine,Esmi Christine,Je m'appelle Christine,Ich heiße Christine,Menya zovut Christine,Me llamo Christine
+9,Nice to meet you,Sa'etto beleqa'ek,Enchanté ,Schön sie kennenzulernen,Priyatno poznakomitsya,Encantado de conocerte
+10,Nice to meet you too!,Sa'etto beleqa'ek aidan,Enchanté également !,Gleichfalls ,I mne tozhe priyatno poznakomitsya s vami!,¡Encantado de conocerte también!
+11,Good morning,Sabaho al khairi,Bonjour,Guten Morgen,Dobroe utro,Buenos días
+12,Good afternoon,Masa'o al Khairi,Bon après-midi,Guten Tag,Dobryy den',Buenas tardes
+13,Good Evening,Masa'o al Khairi,Bon soir,Guten Abend,Dobryy vecher,Buenas noches
+14,Good Night,Lailatan sa'eedatan,Bonne nuit,Gute Nacht,Spokoynoy nochi,Buenas noches
+15,Good bye,Ela alleqa'a,Au revoir,Auf Wiedersehen,Do svidaniya,Adiós
+16,Yes,Na'am,Oui,Ja,Da,Sí
+17,No,La,Non,Nein,Net,No
+18,I,Ana ,Je,Ich,Ya,Yo
+19,You,Ant ,Tu ,Sie,Vy,Tú
+20,Us,Nahno,Nous,Uns,Nas,Nosotros
+21,We,Nahno,Nous,Wir,My,Nosotros
+22,He ,howa,Il ,Er,On,Él
+23,She,Heya,Elle,Sie,Ona,Ella
+24,They,Hom,Ils,Sie,Oni,Ellos
+25,Thank you,Shukran Lak,Merci,Vielen Dank,Spasibo,Gracias
+26,Please,Arjook,S'il vous plait,Bitte,Pozhaluysta,Por favor
+27,No thanks,La shukran,Non merci,Nein danke,"Net, spasibo","No, gracias"
+28,OK,Mouafeq,D'accord,OK,Khorosho,Vale
+29,Sure,Bitakkeed,Bien sûr,Sicher,Konechno,Claro
+30,You're welcome,Ala Al rahbi wa al sea'ti,De rien,Bitte,Pozhaluysta,De nada
+,Hotel,AL fondoq,Hôtel,Hotel,Otel',Hotel
+31,Hotel,Fondoq,Hôtel,Hotel,Otel',Hotel
+32,Reservation,Hajz,Réservation,Reservierung,Bronirovaniye,Reserva
+33,Room,Ghorfa,Chambre,Zimmer,Nomer,Habitación
+34,En-suite bathroom,Hammam,Salle de bain privative,Eigenes Badezimmer,Vannaya komnata v nomere,Baño en la habitación
+35,Restaurant,Mata'am,Restaurant,Restaurant ,Restoran,Restaurante
+36,Check in,Nazala fi al fondoq,Enregistrement ,Einchecken,Zaezd,Registrarse
+37,Checkout time,Waqto tasjeeli al khurooji,Heure de départ,Check-out Zeit,Vremya vyezda,Hora del registro
+38,Luggage,Amtea'a,Bagages,Gepäck,Bagazh,Equipaje
+39,Room service,Khedmato al ghorafi,Service de chambre,Zimmerservice,Obsluzhivaniye v nomerakh,Servicio de habitaciones
+40,Concierge,khedmato al esteqbali,Concierge,Portier,Kons'yerzh,Conserjería
+41,Arrive,Wasala,Arrivée,Ankommen,Pribyt',Llegada
+42,Housekeeping,Al khedmato wal tantheef,Ménage,Housekeeping (Haushalt),Uborka nomera,Servicio de limpieza
+43,Do you have a reservation?,Hal ladaika Hajzon?,Avez-vous une réservation ?,Haben Sie eine Reservierung?,U vas est bron'?,¿Tiene una reserva?
+44,I have booked a room for two.,Laqad hajaztu ghorfatan le shakhsaini.,J'ai réservé une chambre pour deux.,Ich habe ein Zimmer für Zwei gebucht,Ya zabroniroval nomer na dvoikh,He reservado una habitación para dos.
+45,Can I make a reservation?,Hal yomkenoni amalo hajzin?,Puis-je faire une réservation ?,Kann ich eine Reservierung machen?,Mogu ya vypolnit' bronirovaniye?,¿Puedo hacer una reserva?
+46,What is the room rate?,Ma howa se'ero al ghorfati?,Quel est le tarif des chambres ?,Was kostet das Zimmer pro Nacht?,Kakova stoimost' nomera?,¿Cuál es el precio de la habitación?
+47,What time is check out?,Ma howa waqto tasjeeli al khurooji?,A quelle heure se font les départs ?,Um wieviel Uhr ist der Check-out?,V kakoe vremya vyezd?,¿A qué hora se deja la habitación?
+48,Could you please help me with my lugguge?,Hal yomkenoka mosa'adati ma' amte'ati min fadlek?,Pourriez-vous m'aider avec mes bagages ?,Können Sie mir bitte mit meinem Gepäck helfen?,Ne mogli by vy mne pomoch' c moim bagazhom?,"¿Me podría ayudar con mi equipaje, por favor?"
+49,Do you offer room service?,Hal toqademoon khedmata al ghorafi?,Avez-vous un  room service ?,Bieten Sie Zimmerservice an?,Vy predlagayete obsluzhivaniye v nomerakh?,¿Ofrecen servicio de habitaciones?
+50,Where is the restaurant?,Aina howa al mata'am?,Où est le restaurant ?,Wo is das Restaurant?,Gde nakhoditsya restoran?,¿Dónde está el restaurante?
+,Information,Ma'loomat,Informations,Informationen,Informatsiya,Información
+51,Information desk,Maktabo al ma'aloomati,Bureau d'information,Auskunft,Spravochnoe byuro,Mostrador de información
+52,Airport,Matar,Aéroport,Flughafen,Aeroport,Aeropuerto
+53,Shuttle service,Khedmato al naqli al saree'i,Service de navettes,Zubringerdienst,Transfer,Servicio de transporte
+54,Train station,Mahattato sekkatin hadeed,Gare,Bahnhof,Zheleznodorozhnaya stantsiya,Estación de tren
+55,Taxi,Taxi ,Taxi,Taxi,Taksi,Taxi
+56,Bus,Haafila ,Bus,Bus,Avtobus,Autobús
+57,Bicycle,Darrajaton hawa'iya,Vélo,Fahrrad,Velosiped,Bicicleta
+58,ATM,Makenato Sarrafin Aali ,Distributeur automatique,Geldautomat,Bankomat,Cajero automático
+59,Bank,Bank,Banque,Bank,Bank,Banco
+60,Foreign Exchange,Sarfo Omla,Devise étrangère,Devisenhandel,Obmen valyut,Cambio de divisas
+61,I would like to exchange money,Awado sarfa al omla,Je voudrais changer de l'argent,Ich möchte Geld wechseln,Ya khotel(a) by obmenyat' den'gi,Me gustaría cambiar dinero
+62,What is the exchange rate today?,Ma howa se'ero al sarfi al yowm ?,Quel est le taux de change aujourd'hui ?,Was ist der Wechselkurs heute,Kakoy segodnya obmennyy kurs?,¿Cuál es el tipo de cambio hoy?
+63,Tour guide,Morshedon siyahey,Guide touristique,Reiseleiter,Ekskursovod,Guía turístico
+64,Are there any tours today?,Hal honak aiyyo jawlatin seyahiyyatin al yowm?,Y a-t-il des visites aujourd'hui ?,Bieten Sie heute Führungen an?,Segodnya est' kakie-nibud' ekskursii?,¿Hay alguna visita hoy?
+65,Fitness Centre,Nade sehhey,Centre de fitness,Fitnessstudio,Fitnes-tsenter,Centro de fitness
+66,Spa,Montaja'a,Spa,Spa,Spa-salon,Spa
+67,Swimming pool,Masbah ,Piscine,Schwimmbad,Plavatel'niy basseyn,Piscina
+68,Wheelchair access,madkhalo thawe ehteyajatin khassa ,Accès pour handicapés,Zugang für Rollstuhlfahrer,Dostup v invalidnykh kolyaskakh,Acceso para sillas de ruedas
+69,I have a question,Ladaiyya So'al,J'ai une question,Ich habe eine Frage,U menya vopros,Tengo una pregunta
+70,How can I help you?,Kaifa yomkinoni mosa'adatok?,Comment puis-je vous aider ?,Wie kann ich Ihnen helfen?,Mogu li ya vam pomoch?,¿Cómo le puedo ayudar?
+71,Where is the…,Aina howa..,Où est le…,Wo ist…,Gde nakhoditsya…,Dónde está el...
+72,How do I get to the city centre?,Kaifa aselo ela wasti al madina?,Comment aller au centre-ville ?,Wie komme ich in die Innenstadt?,Kak mne dobratsya do tsentra goroda?,¿Cómo llego al centro de la ciudad?
+73,Is there a train sation nearby?,Hal honak mahattato qetarin qariba?,Y a-t-il une gare près d'ici ?,Gibt es einen Bahnhof in der Nähe?,Est' li poblizosty zheleznodorozhnaya stantsiya?,¿Hay una estación de tren cerca?
+74,How far is it to the bus stop?,Kam tab'odo al masafato ann mahattati al hafila?,A quelle distance est l'arrêt de bus ?,Wie weit ist es bis zur Bushaltestelle?,Kak daleko do avtobusnoy ostanovki?,¿A qué distancia está la parada de autobús?
+75,Is it easy to catch a taxi?,Hal min el sahli al hosoolo ala taxi?,Est-il facile de trouver un taxi ?,"Ist es einfach, ein Taxi zu nehmen?",Legko li poymat' taksi?,¿Es fácil tomar un taxi?
+76,Do you have WiFi?,Hal ladaika shabakaton la selkeyya (wi fi)?,Avez-vous le WiFi ?,Haben Sie WiFi?,U vas est' Wi-Fi?,¿Tiene WiFi?
+77,Do you have free internt access?,Hal ladaika wosoolon majjaniyyon lel internet?,Avez-vous un accès internet gratuit ?,Haben Sie kostenfreien Internetzzugang?,U vas est' besplatniy dostup v Internet?,¿Tiene acceso a Internet gratuito?
+,Directions ,Al ettijahat,Directions,Richtungen,Marshrutnyye ukazaniya,Direcciones
+78,Directions ,Ettijahat,Directions,Richtungen,Marshrutnyye ukazaniya,Direcciones
+79,Right,Yameen,Droite,Rechts,Vpravo,Derecha
+80,Left,Yasaar,Gauche,Links,Vlevo,Izquierda
+81,Straight,Khatton mostaqeem,Tout droit,Geradeaus,Pryamo,Recto
+82,Back,Rojooa',Derrière,Zurück,Nazad,Atrás
+83,North ,Al shamal,Nord,Nord,Sever,Norte
+84,South,Al janoob,Sud,Süd,Yug,Sur
+85,East,Al sharq,Est,Ost,Vostok,Este
+86,West,Al gharb,Ouest,West,Zapad,Oeste
+87,Centre,Al markaz,Centre,Zentrum,Tsenter,Centro
+88,Road,Tareeq,Route,Straße,Doroga,Carretera
+89,Street,Shaare',Rue,Weg,Ulitsa,Calle
+90,Avenue,Jaadda,Avenue,Allee,Prospekt,Avenida
+91,Square,Maydan,Place,Platz,Ploshad',Plaza
+92,Map,Khareeta,Carte,Karte,Karta,Mapa
+93,Excuse me,Al ma'thera,Excusez-moi ,Enschuldigung,Izvinite menya,Perdone
+94,Could you please help me?,Hal yomkenoka mosa'adati min fadlek?,Pourriez-vous m'aider ?,Können Sie mir bitte helfen?,Ne mogli by vy mne pomoch?,"¿Me podría ayudar, por favor?"
+95,Which way is the airport?,Aina howa tareeqo al matar?,Par où est l'aéroport ?,Welche Richtung führt zum Flughafen?,V kakom napravlenii nakhoditsya aeroport?,¿En qué dirección está el aeropuerto?
+96,How far is it to the beach?,Kam tab'odo al masafato an al shate'?,A quelle distance est la plage ?,Wie weit ist es bis zum Strand?,Kak daleko do plyazha?,¿A qué distancia está la playa?
+97,The temple is that way,Al ma'bado fi hatha al tareeq,Le temple est dans cette direction,Der Tempel ist in der Richtung,Khram nakhoditsya v etom napravlenii,El templo está por allí
+98,"You should take the highway, heading north.","Yajebo ann tastaqella al tareeqa al saree'a, be ettijahi al shamal",Vous devriez prendre l'autoroute et aller vers le nord.,Nehmen Sie die Autobahn Richtung Norden,Vam nuzhno ekhat' po shosse na sever,"Debería tomar la autovía, en dirección norte."
+,Places of Interest,Amaken that Ahamiyya,Lieux intéressants,Sehenswürdigkeiten,Interesnyye mesta,Lugares de interés
+99,Historical Landmark,Ma'lamon tarikheey,Site historique,Historische Wahrzeichen,Istoricheskaya dostoprimechatel'nost',Punto histórico
+100,Museum,Mat-haf,Musée,Museum,Muzey,Museo
+101,In the mall,Fi markazi al tasawooq,Dans le centre commercial,Im Einkaufszentrum,V torgovom tsentre,En el centro comercial
+102,Garden,hadeeqa,Jardin,Garten,Sad,Jardín
+103,Temple,Ma'bad,Temple,Tempel,Khram,Templo
+104,Church,Kanisa,Eglise,Kirche,Tserkov,Iglesia
+105,Cathedral,Katedra'eyyah,Cathédrale,Kathedrale,Kafedral'nyy Sobor,Catedral
+106,Gallery,Ma'rad,Galerie,Gallerie,Galereya,Galería
+107,Exhibition Centre,Markazo ma'aared,Centre d'expositions,Messestadt,Vystavochnyy tsenter,Centro de exposiciones
+108,Shopping,Tasawooq,Shopping,Einkaufen,Magaziny,Compras
+109,Café,Maqha,Café,Café,Kafe,Cafetería
+110,Bar,Bar,Bar,Kneipe,Bar,Bar
+111,Club,Nadi,Boîte de nuit,Disco,Klub,Club
+112,Theatre,Masrah,Théâtre,Theater,Teatr,Teatro
+113,Concert Hall,Qa'ato haflatin musiqiyya ,Salle de concert,Konzertsaal,Kontsertnyy zal,Sala de conciertos
+114,Market,Souq,Marché,Markt,Rynok,Mercado
+115,Planetarium,Qobbaton samaweyya,Planétarium,Planetarium,Planetariy,Planetario
+116,Aquarium,Hadeqato asmaak,Aquarium,Aquarium,Akvariyum,Acuario
+117,Amusement Park,Hadeqato malahi,Parc d'attractions,Vergnügungspark,Park attraktsionov,Parque de atracciones
+118,Bus tour,Jawlaton bel hafila ,Visite en bus,Bustour,Avtobusnaya ekskursiya,Visita en autobús
+119,Ruins,Atlaal,Ruines,Ruinen,Ruiny,Ruinas
+120,Castle,Qal'a,Château,Burg,Zamok,Castillo
+121,Palace,Qasr,Palais,Schloss,Dvorets,Palacio
+122,Fort,Hesn,Forteresse,Festung,Fort,Fuerte
+,Clothing,Al malabes,Vêtements,Kleidung ,Odezhda,Ropa
+123,Clothes,Malabes,Habits,Kleidung,Odezhda,Ropa
+124,Price,Se'r ,Prix,Preis,Tsena,Precio
+125,Size,Maqas,Taille,Größe,Razmer,Talla
+126,T-Shirt,T- shirt,T-Shirt,T-Shirt,Futbolka,Camiseta
+127,Shirt,Qamees,Chemise,Hemd,Rubashka,Camisa
+128,Trousers ,Bantaloon,Pantalon,Hose,Bryuki,Pantalones
+129,Jeans,Jeans,Jean,Jeans,Dzhinsy,Vaqueros
+130,Bag,Haqeeba,Sac,Handtasche,Sumka,Bolso
+131,Scarf,Weshah,Echarpe,Schal,Sharf,Bufanda
+132,Coat,Me'taf,Manteau,Mantel,Pal'to,Abrigo
+133,Accessories,Akseswaarat,Accessoires,Accessoires,Aksessuary,Accesorios
+134,Watch,Sa'aa,Montre,Uhr,Naruchnyye chasy,Reloj
+135,Jewellery,Mojawharat,Bijoux,Schmuck ,Yuvelirnoye izdeliye,Joyería
+136,Underwear,Malabeso Dakhiliyya,Sous-vêtements,Unterwäsche,Nizhnee bel'ye,Ropa interior
+137,Dress,Fostan,Robe,Kleid,Plat'e,Vestido
+138,Skirt,Tannora,Jupe,Rock,Yubka,Falda
+139,Shorts,Shortat,Short,Kurze Hose,Shorty,Pantalones cortos
+140,Shoes,Ahh-theya,Chaussures,Schuhe,Tufli,Zapatos
+141,Sandals,Sanadel,Sandales,Sandalen,Sandalii,Sandalias
+142,Jumper,Sotra,Pull,Pullover,Dzhemper,Suéter
+143,Umbrella,Mathalla,Parapluie,Regenschirm,Zont,Paraguas
+144,Gloves,Qofazat,Gants,Handschuhe,Perchatki,Guantes
+145,Hat,Qobaa'a,Chapeau,Hut,Shlyapa,Sombrero
+146,Swimming suit,Badlato Sebaha,Maillot de bain,Badeanzug,Kupal'nik,Traje de baño
+147,Pyjamas,Bejama,Pyjama,Schlafanzug,Pizhama,Pijama
+,Buying/Shopping,Al shera'a/ Al tasawooq,Achats/Shopping,Einkaufen,Pokupki/shopping,De compras
+148,Buy,Sheraa'a,Acheter,Kaufen,Kupit',Comprar
+149,Price,Se'er ,Prix,Preis,Tsena,Precio
+150,Cost,Taklefa,Coût,Kosten,Stoimost',Coste
+151,Cheap,Rakhees,Bon marché,Billig,Deshevo,Barato
+152,Expensive,Ghali,Cher,Teuer,Dorogo,Caro
+153,Free,Majjaniy,Gratuit,Kostenlos,Besplatno,Gratis
+154,Souvenir,Tethkar,Souvenir,Souvenir,Suvenir,Recuerdo
+155,Spices,Tawabel ,Epices,Gewürze,Pryanosti,Especias
+156,Food,Ghada'a,Nourriture,Essen,Eda,Comida
+157,Drinks,Mashrobat,Boissons,Getränke,Napitok,Bebidas
+158,Credit card,Betaqato e'timan,Carte de crédit,Kreditkarte,Kreditnaya karta,Tarjeta de crédito
+159,Debit card,Betaqato khasm,Carte de débit,Debitkarte,Debetovaya karta,Tarjeta de débito
+160,Travellers cheques,Shekkaton Seyahiyya,Chèques de voyage,Reiseschecks,Dorozhnyye cheki,Cheques de viaje
+161,Cash,Naqdey,Espèces,Bargeld,Nalichnyye,Dinero en efectivo
+162,Change,Sarf,Monnaie,Kleingeld,Sdacha,Cambiar
+163,Cheque ,Cheaque ,Chèque,Scheck,Chek,Cheque
+164,Exchange rate,Se'ero al sarfi,Taux de change,Wechselkurs,Obmennyy kurs,Tipo de cambio
+165,Big,Kabeer,Grand,Groß,Bol'shoy,Grande
+166,Small,Sagheer,Petit,Klein,Malen'kiy,Pequeño
+167,How much does this cost?,Kam yokallefo hatha?,Combien est-ce que ça coûte ?,Wieviel kostet das?,Skol'ko eto stoit?,¿Cuánto cuesta esto?
+168,Will you give me a discount?,Hal sawfa to'atini khasman?,Pouvez-vous me faire un rabais ?,Geben Sie mir Rabatt?,Ne mogli by vy predostavit' mne skidku?,¿Me haría un descuento?
+169,Can I exchange this?,Hal yomkinoni Estebdalo hatha?,Est-ce que je peux échanger ça ?,Kann ich dies umtauschen?,Mogu li ya obmenyat' eto?,¿Puedo cambiar esto?
+170,You only get store credit,Anta taahsolo faqat ala neqati shera'in men al matjar,Vous avez seulement droit à un avoir,Sie bekommen nur einen Gutschein,Vy tolko poluchite tovarniy kredit,Solo obtendrá crédito para la tienda
+171,Do you have change?,Hal ladaika serafa?,Avez-vous de la monnaie ?,Können Sie wechseln?,U vas est sdacha?,¿Tiene cambio?
+172,Do you accept credit cards?,Hal taqbalo al betaqati al E'atimaniya?,Acceptez-vous la carte de crédit ?,Akzeptieren Sie Kredietkarten?,Vy prinimaete kreditnyye karty?,¿Aceptan tarjetas de crédito?
+173,It costs $50,Ennaha tokallefo khamseena Dolaran,Cela coûte 50 dollars,Es kostet $50,Eto stoit 50 dollarov USA (S Sh A),Cuesta 50 $
+174,"Buy one, get one free.","Eshteri wahidatan, wa Ohsol ala wahidaten majjanan.","Un acheté, un gratuit.","Kaufe eins, erhalte eins Gratis",Kupite odin tovar i poluchite vtoroy besplatno,"Compre uno, llévese uno gratis."
+175,I'll take two please,Sa'akhotho ethnataini min fadleka. ,J'en prendrai deux s'il vous plait,Ich nehme zwei bitte,"Pozhaluysta, dayte mne dva","Me llevaré dos, por favor"
+176,Thank you,Shukran lak. ,Merci,Danke,Spasibo,Gracias
+177,Can I have a bag?,Hal yomkinoni al hosoolo ala haqeeba?,Puis-je avoir un sac ?,Kann ich eine Tasche bekommen?,Ne mogli by vy dat' mne paket?,¿Me podría dar una bolsa?
+178,Do you deliver?,Hal ladaika khedmato tawseel?,Est-ce que vous livrez ?,Liefern Sie an?,Vy osushestvlyayete dostavku?,¿Tienen entrega a domicilio?
+179,When will it be ready?,Mata sawfa takoono jahiza?,Quand est-ce que ce sera prêt ?,Wann wird es fertig sein?,Kogda eto budet gotovo?,¿Cuándo estará listo?
+180,Do you have it in a bigger size?,Hal ladaika hathehi bemaqasin akbar?,Avez-vous une plus grande taille ?,Haben Sie es eine Nummer größer?,U vas est' eto bol'shego razmera?,¿Lo tienen en una talla mayor?
+181,It's out of stock,Laqad nafethat min al makhzoon,Le stock est épuisé,Es ist ausverkauft,Etogo uzhe net na sklade,Está agotado
+182,It's the last one,Ennaha a'akhero wahedin,C'est le dernier,Es ist das Letzte,Eto posledniy,Es el último
+183,I would like to return this,Awaddo e'aadata hathehi,J'aimerais rendre ceci,Ich möchte dieses zurückbringen,Ya khotel(a) by vernut' eto,Me gustaría cambiar esto
+184,Is this item on sale?,Hal hathehi al maddato tahtt al takhfidat?,Cet article est-il en vente ?,Ist dieser Artikel runtergesetzt?,Etot tovar prodaetsya so skidkoy?,¿Está de oferta este artículo?
+,Restaurant,Al mata'am ,Restaurant,Restaurant,Restoran,Restaurante
+185,Restaurant,mata'am,Restaurant,Restaurant,Restoran,Restaurante
+186,Breakfast,Fatoor,Petit déjeuner,Früstück,Zavtrak,Desayuno
+187,Lunch,Gheda'a,Déjeuner,Mittagessen,Obed,Almuerzo
+188,Dinner,Asha'a,Dîner,Abendessen,Uzhin,Cena
+189,Starter,Muqabilat,Entrée,Vorspeise,Zakuska,Entrada
+190,Main course,Tabaqon Ra'esi,Plat principal,Hauptgericht,Glavnoye blyudo,Plato principal
+191,Dessert,Halwayat,Dessert,Nachtisch,Desert,Postre
+192,Side dish,tabaqqon janibiy,Plat d'accompagnement,Beilage,Garnir,Acompañamiento
+193,Table,Tawila ,Table ,Tisch,Stol,Mesa
+194,Fork,shawka ,Fourchette,Gabel,Vilka,Tenedor
+195,Spoon,mela'aqa,Cuillère,Loeffel,Lozhka,Cuchara
+196,Knife,Sekkin,Couteau,Messer,Nozh,Cuchillo
+197,Plate,Tabaq,Plat,Teller ,Tarelka,Plato
+198,Serviette,Mandeelo ma'eda,Serviette,Serviette,Salfetka,Servilleta
+199,Waiter,Nadel ,Serveur,Kellner,Ofitsiant,Camarero
+200,Waitress,Naadela,Serveuse,Kellnerin,Ofitsiantka,Camarera
+201,"I'd like some water, please.",Oreedo ba'ad al ma'a,Je voudrais de l'eau s'il vous plait.,Ich möchte bitte ein Wasser.,"Pozhaluysta, prinesite mne nemnogo vody","Me gustaría algo de agua, por favor."
+202,"Can we have the menu, please?","hal yomkino an nahsola ala qa'emati al ta'ami, min fadlek?",Puis-je voir le menu s'il vous plait ?,Können wir bitte die Speisekarte haben?,Ne mogli by vy podat' nam menyu?,"¿Nos podría traer el menú, por favor?"
+203,Can I book a table for four?,hal yomkinoni hajzo tawilatin le arba'ati ash-khas?,Est-il possible de réserver une table pour quatre ?,Kann ich einen Tisch für vier Personen buchen?,Mozhno zabronirovat' stolik na chetverykh?,¿Puedo reservar una mesa para cuatro?
+204,What time will you arrive?,fi ayye waqtin satasel?,A quelle heure arriverez-vous ?,Um wieviel Uhr werden Sie ankommen?,V kakoye vremya vy pridete?,¿A qué hora llegará?
+205,Are you ready to order?,hal anta mosta'edon le talab?,Êtes-vous prêts à commander ?,Möchten Sie schon bestellen?,Vy gotovy sdelat' zakaz?,¿Está listo para pedir?
+206,"We would like to order two salads, please.",nawaddo an natloba ethnaini min al salata. Min fadlek.,Nous aimerions commander deux salades s'il vous plait.,Wir möchten bitte zwei Salate betstellen. ,My khoteli by zakazat' dva salata,"Nos gustarían dos ensaladas, por favor."
+207,"Can we have the bill, please?",hal yomkino an nahsola ala al fatorati min fadlek?,Pouvons-nous avoir l'addition s'il vous plait ?,Können wir bitte die Rechnung bekommen?,Ne mogli by vy prinesti schet?,"¿Nos podría traer la cuenta, por favor?"
+208,What are the specials today?,ma hiya al atbaqo al khassato al yowm?,Quel est le plat du jour ?,Was für Angebote haben Sie heute?,Kakiye firmennyye blyuda predlagayutsya segodnya?,¿Cuáles son los especiales hoy?
+209,Can we leave a tip?,hal yomkinona tarko baqsheesh?,Pouvons-nous laisser un pourboire ?,Können wir Trinkgeld hinterlassen?,Mozhem li my ostavit' chayevyye?,¿Podemos dejar propina?
+210,How much is the buffet?,kam se'ero al buffaih?,A combien est le buffet ?,Wieviel kostet das Buffet?,"Skol'ko stoit ""shvedskiy stol""?",¿Cuánto cuesta el bufé?
+,Food,Al ghada'a,Nourriture,Essen,Yeda,Comida
+211,Food ,ghada'a,Nourriture,Essen,Yeda,Comida
+212,Tea,shai,Thé,Tee,Chay,Té
+213,I'd like a cup of coffee,Arghabo bel husooli ala fenjani qahwa,J'aimerais une tasse de café,Ich möchte eine Tasse Kaffee,Ya khotel by vypit' chashechku kofe,Me gustaría una taza de café
+214,Sugar,Sukkar,Sucre,Zucker,Sakhar,Azúcar
+215,Salt & Pepper,Melhon wa Folfol ,Sel et poivre,Salz und Pfeffer,Sol' i perets,Sal y pimienta
+216,Milk,Haleeb,Lait,Milch,Moloko,Leche
+217,Cheese,jobna,Fromage,Käse,Syr,Queso
+218,Drinks,Mashroubat,Boissons,Getränke,Napitki,Bebidas
+219,Wine,Nabeeth,Vin,Wein,Vino,Vino
+220,Beer,Beera,Bière,Bier,Pivo,Cerveza
+221,Soda,Souda,Soda,Sprudel,Gazirovka,Refresco
+222,Juice,A'seer,Jus,Saft,Sok,Zumo
+223,Vegetarian,Nabati,Végétarien,Vegetarisch,Vegetarianskiy,Vegetariano
+224,Meat,Lahm,Viande,Fleisch,Myaso,Carne
+225,Eggs,Baid,Oeufs,Eier,Yaytsa,Huevos
+226,Chicken,Dajaj,Poulet,Huhn,Kuritsya,Pollo
+227,Fish,Samak,Poisson,Fisch,Ryba,Pescado
+228,Sandwich,Shateera,Sandwich,Butterbrot,Buterbrod,Sándwich
+229,Burger,Burger,Hamburger,Hamburger,Gamburger,Hamburguesa
+230,Pizza,Pizza,Pizza,Pizza,Pitsa,Pizza
+231,Fries,Batateso maqliyya,Frites,Pommes Frites,Friz,Patatas fritas
+232,Salad,Salata,Salade,Salat,Salat,Ensalada
+233,Soup,Hasa'a,Soupe,Suppe,Sup,Sopa
+234,Fruit ,Fakiha,Fruit,Obst,Frukt,Fruta
+235,Vegetables,Khadrawat,Légumes,Gemüse,Ovoshi,Verduras
+236,Chocolate,Chocolata,Chocolat,Schockolade,Shokolad,Chocolate
+237,Ice-cream,Ice Cream ,Glace,Eis,Morozhenoye,Helado
+238,Sweet,Holu,Sucré,Süß,Sladkiy,Dulce
+239,Salty,Maleh,Salé,Salzig,Solenyy,Salado
+240,Spicy,Har,Epicé,Scharf,Pryanyy,Picante
+241,Sour,Haamed,Aigre,Sauer,Kislyy,Agrio
+242,Bitter,Mur,Amer,Bitter,Gor'kiy,Amargo
+,Emergency Services,Khadamat Al taware',Urgences,Notfall Dienste,Avariyno-spasatel'niye slyzhby,Servicios de emergencia
+243,Emergency,Taware',Urgence,Notfall,Skoraya pomosh',Emergencia
+244,Hospital,Mustashfa,Hôpital,Krankenhaus,Bol'nitsya,Hospital
+245,Ambulance,Es'aaf,Ambulance,Krankenwagen,Avtomobil' skoroy pomoshi,Ambulancia
+246,Sick,Mareed,Malade,Krank ,Bol'noy,Enfermo
+247,Accident,Hadeth,Accident,Unfall,Neschastnyy sluchay,Accidente
+248,Emergency Room,ghurfato taware',Salle des urgences,Notaufnahme,Reanimatsiya,Sala de urgencias
+249,Doctor,tabeeb,Docteur,Arzt,Vrach,Doctor
+250,Surgery,A'amaliyyaton Jerahiyya,Chirurgie,Chirurgie,Khirurgiya,Cirugía
+251,Injured,Musab ,Blessé,Verletzt,Travmirovannyy,Herido
+252,Cut,qate',Coupé,Schnittwunde,Porez,Cortado 
+253,Broken,maksour,Cassé,Kaputt,Slomannyy,Roto
+254,Health insurance,ta'meenon sehhiy,Assurance santé,Krankenversicherung,Meditsinskoye strakhovaniye,Seguro de salud
+255,Nurse,mumarred,Infirmier,Krankenschwester,Medsestra,Enfermera
+256,Anaesthesia,takhdeer,Anesthésie,Narkose,Anesteziya,Anestesia
+257,First Aid box,haqebato esa'afatin awaliyya ,Trousse de premiers secours,Verbandskasten,Aptechka prevoy pomoshi,Botiquín de primeros auxilios
+258,Medicine,dawa',Médicament,Medizin,Lekarstvo,Medicina
+259,Police,shurta ,Police,Polizei,Politsiya,Policía
+260,Theft,Sareqa,Voleur,Diebstahl,Krazha,Robo
+261,Wallet,Mehfatha,Porte-monnaie,Portemonnaie,Bumazhnik,Cartera
+262,Report,Balagh,Signalement,Bericht,Soobshit',Denuncia
+263,Help,Musa'ada,Aide,Hilfe,Pomosh',Ayuda
+264,We need an ambulance!,nahno nahtajo ela seyyarati esa'af,Nous avons besoin d'une ambulance !,Wir brauchen einen Krankenwagen!,Nam nuzhna skoraya pomosh'!,¡Necesitamos una ambulancia!
+265,Where is the nearest hospital?,Aina aqrabo mustashfa?,Où se trouve l'hôpital le plus proche ?,Wo ist das nächste Krankenhaus?,Gde nahoditsya blizhayshaya bol'nitsya?,¿Dónde está el hospital más cercano?
+266,She has broken her leg,Laqad kasarat saaqaha,Elle s'est cassé la jambe,Sie hat Ihr Bein gebrochen,Ona slomala nogu,Se ha roto la pierna
+267,I will prescribe you some medication,sawfa asefo lak ba'da al adweya,Je vais vous prescrire des médicaments,Ich werde Ihnen einige Medikamente verschreiben,Ya vypishu vam neskol'ko lekarstv,Le recetaré algo de medicación
+268,I would like to report a crime,awaddo al eblagha Aan Jarima,Je voudrais signaler un crime,Ich möchte ein Verbrechen melden,Ya khotel by soobshit' o prestuplenii,Me gustaría denunciar un crimen
+269,My wallet has been stolen,mahfathati soreqat,On a volé mon porte-monnaie,Mein Portemonnaie wurde gestollen,U menya ukrali bumazhnik,Me han robado la cartera
+,Numbers,Al arqam ,Chiffres,Nummern,Chisla,Números
+270,Numbers,Arqam ,Chiffres,Nummern,Chisla,Números
+271,One,wahed,Un,Eins,Odin,Uno
+272,Two,ethnan,Deux,Zwei,Dva,Dos
+273,Three,thalatha,Trois,Drei,Tri,Tres
+274,Four,arba'a,Quatre,Vier,Chetyre,Cuatro
+275,Five,khamsa,Cinq,Fünf,Pyat',Cinco
+276,Six,setta,Six,Sechs,Shest',Seis
+277,Seven,saba'a,Sept,Sieben,Sem',Siete
+278,Eight,thamaniya,Huit,Acht,Vosem',Ocho
+279,Nine,tesa'a,Neuf,Neun,Devyat',Nueve
+280,Ten,A'ashara,Dix,Zehn,Desyat',Diez
+281,Eleven,Ahad Ashar,Onze,Elf,Oddinnadtsat',Once
+282,Twelve,Ethna Ashar,Douze,Zwölf,Vdenadtsat',Doce
+283,Thirteen,thalathata Ashar,Treize,Dreizehn,Trinadtsat',Trece
+284,Fourteen,arbaa'ta ashar,Quatorze,Vierzehn,Chetyrnadtsat',Catorce
+285,Fifteen,khamsata ashar,Quinze,Fünfzehn,Pyatnadtsat',Quince
+286,Sixteen,settata ashar,Seize,Sechzehn,Shestnadtsat',Dieciséis
+287,Seventeen,saba'ata ashar,Dix-sept,Siebzehn,Semnadtsat',Diecisiete
+288,Eighteen,Thamaniyata ashar,Dix-huit,Achtzehn,Vosemnadtsat',Dieciocho
+289,Nineteen,tes'ata ashar,Dix-neuf,Neunzehn,Devyatnadtsat',Diecinueve
+290,Twenty,E'shroon,Vingt,Zwanzig,Dvadtsat',Veinte
+291,Fifty,khamsoon,Cinquante,Fünfzig,Pyatdesyat,Cincuenta
+292,Hundred,Me'aa,Cent,Hunderd,Sto,Cien
+293,Thousand,Alf,Mille,Tausend,Tysyacha,Mil
+294,It is my first time in Delhi,Ennaha awalo marratin azooro Delhi,C'est la première fois que je viens à Delhi,Es ist mein erstes Mal in Delhi,Eto moy pervyy vizit d Del,Esta es mi primera vez en Delhi
+295,This is my second complaint,hathehe shakwaiya al thaniya,C'est ma deuxième réclamation,Es ist meine zweite Beschwerde,Eto moya vtoraya zhaloba,Esta es mi segunda queja
+296,Turn right at the third traffic light,En'atef yamenan enda al esharati al daw'eyati al thaletha,Tournez à gauche au troisième feu ,Biegen Sie rechst ab an der dritten Ampel,Na tret'yem svetofore povernite napravo,Gire a la derecha en el tercer semáforo
+,Days & Months,al ayyam wal ash-hor,Jours et mois,Tage und Monate,Dni i mesyatsy,Días y meses
+297,Days and Months,ayyamon wa ash-hor,Jours et mois,Tage und Monate,Dni i mesyatsy,Días y meses
+298,Monday,al ethnain,Lundi,Montag ,Ponedel'nik,Lunes
+299,Tuesday,al tholatha'a,Mardi,Dienstag,Vtornik,Martes
+300,Wednesday,al arbea'a,Mercredi,Mittwoch,Sreda,Miércoles
+301,Thursday,al khamees,Jeudi,Donnerstag,Chetverg,Jueves
+302,Friday,al joma'a,Vendredi,Freitag,Pyatnitsya,Viernes
+303,Saturday,al sabt ,Samedi,Samstag,Subbota,Sábado
+304,Sunday,al ahad,Dimanche,Sonntag,Voskreseniye,Domingo
+305,Weekend,Otlato nehayati al esbou'a,Weekend,Wochenende,Vykhodnyye,Fin de semana
+306,Today,al yowm ,Aujourd'hui,Heute,Segodnya,Hoy
+307,Yesterday,Ams ,Hier,Gestern,Vchera,Ayer
+308,Tomorrow,Ghadan,Demain,Morgen,Zavtra,Mañana
+309,Holiday,Otla,Vacances,Urlaub,Prazdnik,Vacaciones
+310,It will take two working days to deliver,sawfa tastaghreqo yawmaiy amal lettawseel,La livraison prendra deux jours ouvrés,Es dauert zwei Werktage für die Lieferung,Dostavka zaymet dva rabochikh dnya,El envío tardará dos días laborables
+311,January,yanayer,Janvier,Januar,Yanvar',Enero
+312,February,febrayer,Février,Februar,Fevral',Febrero
+313,March,maris,Mars,März,Mart,Marzo
+314,April,abbreel,Avril,April,Aprel',Abril
+315,May,mayo,Mai,Mei,May,Mayo
+316,June,yonyo,Juin,Junie,Iyun',Junio
+317,July,yolyo,Juillet,Julie,Iyul',Julio
+318,August,aughostos,Août ,August,Avgust,Agosto
+319,September,september,Septembre,September,Sentyabr',Septiembre
+320,October,october,Octobre,October,Oktyabr',Octubre
+321,November,november,Novembre,November,Noyabr',Noviembre
+322,December,december ,Décembre,Dezember,Dekabr',Diciembre
+323,Month,shaher,Mois,Monat,Mesyats,Mes
+324,Year,sana,Année,Jahr,Kod,Año
+325,When is your birthday,mata yakouno yowmo meladak,Quand est ton anniversaire ?,Wann ist Ihr Geburtstag?,Kogda u tebya den' rozhdeniya?,¿Cuándo es tu cumpleaños?
+326,My birthday is tomorrow,yowmo meladi ghadan ,Mon anniversaire est demain,Ich habe morgen Geburtstag,Moy den' rozhdeniya budet zavtra,Mi cumpleaños es mañana
+,Time,al waqt ,Temps,Zeit,Vremya,Hora
+327,Time,waqt ,Temps,Zeit,Vremya,Hora
+328,Morning,sabah,Matin,Morgen,Utro,Mañana
+329,Afternoon,ba'ada al thaheera,Après-midi,Nachmittag,Posle poludnya,Tarde
+330,Evening,masa'a,Soir,Abend,Vecher,Noche
+331,Night,lail,Nuit,Nacht,Noch',Noche
+332,Noon,montasafo al thaheera,Midi,Mittag,Polden',Mediodía
+333,Now,al'an ,Maintenant,Jetzt,Seychas,Ahora
+334,Later,laheqan,Plus tard,Später,Pozzhe,Más tarde
+335,Sunrise,shorouq,Lever de soleil,Sonnenaufgang,Voskhod,Amanecer
+336,Sunset,ghoroub,Coucher de soleil,Sonnenuntergang,Zakat,Atardecer
+337,One o'clock,al sa'aato al waheda,Une heure,Ein Uhr,Odin chas,Una en punto
+338,Quarter past Two,al thaniyato wa al robo'a,Deux heures et quart,Viertel nach Zwei,Chetvert' tret'yego,Las dos y cuarto
+339,Half past eight,al thaminato wa al nesf,Huit heures et demie,Halb Neun,Poldevyatogo,Las ocho y media
+340,What is the time?,ma howa al waqt?,Quelle heure est-il ?,Wie spät ist es?,Skol'ko vremeni?,¿Qué hora es?
+341,I'll be there in 5 minutes,sa'akouno honaka ba'ada khamsi daqa'eq,Je serai là dans cinq minutes,Ich werde in fünf Minuten da sein,Ya budu tam cherez pyat' minut,Estaré ahí en 5 minutos
+342,It is 5 hours to Delphi,taba'odo delhi khamsa sa'at,Il y a cinq heures jusqu'à Delphi,Es ist fünf Stunden bis Delphi,Do Deli mozhno dobratsya za pyat' chasov,Son 5 horas hasta Delphi
+343,Please wake me up at seven o'clock,min fadlek ayqethni fi el sa'aati al sabe'aa,Réveillez-moi à sept heures s'il vous plait,Bitte weck mich um sieben Uhr auf,"Pozhaluysta, razbudite menya v sem' chasov","Por favor, despiérteme a las siete en punto"
+344,The train leaves at 9 o'clock,yoghadero al qetaro fi al sa'aati al tase'aati sabahan,Le train part à neuf heures,Der Zug fährt um Neun Uhr,Poezd otpravlyaetsya v devyat' chasov,El tren sale a las 9 en punto
+,Family,al Aa'ela,Famille,Familie,Semya,Familia
+345,Family,A'ela,Famille,Familie,Semya,Familia
+346,Mother,Om ,Mère,Mutter,Mat',Madre
+347,Father,Abb,Père,Vater,Otets,Padre
+348,Brother,Akh,Frère,Bruder,Brat,Hermano
+349,Sister,Okht,Sœur,Schwester,Sestra,Hermana
+350,Son,Ibn ,Fils,Sohn,Syn,Hijo
+351,Daughter,Ibna,Fille,Tochter,Doch,Hija
+352,Husband,zawj,Mari,Ehemann,Muzh,Marido
+353,Wife,zawja,Femme,Ehefrau,Zhena,Esposa
+354,Uncle,Aam,Oncle,Onkel,Dyadya,Tío
+355,Aunt,Amma,Tante,Tante,Tetya,Tía
+356,Niece,Ibnato akh,Nièce,Nichte ,Plemyannitsa,Sobrina
+357,Nephew,Ibno akh,Neveu,Neffe,Plemyannik,Sobrino
+358,Cousin (male),Ibno a'amm (mothakkar),Cousin,Cousin,Dvoyurodnyy brat,Primo
+359,Cousin (female),ebnato a'amm (moa'annath),Cousine,Cousine,Dvoyurodnaya sestra,Prima
+360,Friend,sadeeq,Ami,Freund,Drug,Amigo
+361,I have two sisters,ladayya Okhtan,J'ai deux sœurs,Ich habe zwei Schwestern,U menya dve sestry,Tengo dos hermanas
+362,I have three younger brothers,ladayya thalathato ekhwatin asgharo sennan,J'ai trois petits frères,Ich habe drei jüngere Brüder,U menya troye mladshikh brat'yev,Tengo tres hermanos pequeños
+363,My parents live in Berlin,walidaiya ya'eshani fi Barlin,Mes parents vivent à Berlin,Meine Eltern wohnen in Berlin,Moi roditeli zhivut v Berline,Mis padres viven en Berlín
+364,Grandfather,Jadd,Grand-père,Großvater,Ded,Abuelo
+365,Grandmother,Jadda,Grand-mère,Großmutter,Babushka,Abuela
+366,Grandson,hafeed,Petit-fils,Enkelsohn,Vnuk,Nieto
+367,Granddaughter,hafeeda,Petite-fille,Enkeltochter,Vnuchka,Nieta
+368,My relatives are visiting us in Spain,aqarebi yazoronana fi espanya ,Ma famille vient nous voir en Espagne,Meine Verwandten besuchen uns in Spanien,Moi rodstvenniki gostyat u nas v Ispanii,Mis familiares nos están visitando en España
+,Travel Agent,wakalet safar ,Agent de voyage,Reisebüro,Turagent,Agente de viajes
+369,Travel Agent,wakalato safar,Agent de voyage,Reisebüro,Turagent,Agente de viajes
+370,Flight,rehla ,Vol,Flug,Reys,Vuelo
+371,Airline,sherkato tayaran,Compagnie aérienne,Fluggesellschaft,Aviyakompaniya,Aerolínea
+372,Destination,wejhaa,Destination,Reiseziel,Mesto naznacheniya,Destino
+373,Arrival ,wosool,Arrivée,Ankunft,Pribytiye,Llegada
+374,Departure,moghadara ,Départ,Abflug,Ot'ezd,Salida
+375,Ticket,tathkara,Billet,Ticket/Flugschein,Bilet,Billete
+376,Passport,jawazo essafar,Passeport,Pass,Pasport,Pasaporte
+377,Immigration,hejra,Immigration,Einwanderung,Immigratsionnyy kontrol',Inmigración
+378,Visa,ta'shera ,Visa,Visum,Viza,Visado
+379,Where are the Duty Free Shops?,Aina makano al aswaqi al horra,Où est le Duty-Free ?,Wo sind die Duty Free Geschäfte?,Gde nakhodyatsya magaziny besposhlinnoy torgovli?,¿Dónde están las tiendas libres de impuestos?
+380,Pilot,tayyar ,Pilote,Pilot,Pilot,Piloto
+381,Flight Attendant,modeef,Agent de bord,Flugbegleiterin,Styuardessa,Asistente de vuelo
+382,Island vacation,ejazaton fi jazeera,Vacances dans les îles,Insel Urlaub,Otdykh na ostrovakh,Vacaciones en una isla
+383,Business or pleasure?,Amalon aw tarfeeh?,Pour le travail ou pour des vacances ?,Geschäftlich oder privat?,Po delam ili dlya udovol'stviya?,¿Negocios o placer?
+384,Honeymoon,shaharo Asal,Lune de miel,Flitterwochen,Medoviy mesyats,Luna de miel
+385,Itinerary,masaro errehla ,Itinéraire,Reiseroute,Marshrut,Itinerario
+386,Package deal,safqaton shamela,Formule forfaitaire,Pauschalangebot,Paketnoye predlozheniye,Oferta con todo incluido
+387,I would like to book a trip,awaddo hajza rehla ,Je voudrais réserver un voyage,Ich möchte eine Reise buchen,Ya khotel by priobresti puteshestviye,Me gustaría reservar un viaje
+388,I would like to stop over in Madrid,awaddo ann atawaqafa fi Madrid,Je voudrais faire escale à Madrid,Ich möchte in Madrid einen Zwischenstopp einlegen,Ya khotel by ostanovitsya v Madride po puti,Me gustaría detenerme en Madrid
+389,We are a group,nahno majmo'aa,Nous sommes un groupe,Wir sind eine Gruppe,My yavlyaemsya gruppoy,Somos un grupo
+390,My family and I,A'elati wa ana ,Ma famille et moi,Meine Familie und ich,Moya sem'ya i ya,Mi familia y yo
+391,Transit,morooron A'ber ,Transit,Transit,Tranzit,Tránsito
+392,What is the baggage weight allowance?,ma howa al haddo al masmouho behi lewazni al A'mte'a ,Quel est le poids autorisé pour les bagages ?,Wieviel Kilogramm Freigepäck ist erlaubt?,Kakova norma bagazha po vesu?,¿Cuál es el peso del equipaje permitido?
+393,I have nothing to declare at customs,laisa endi ma osarreho behi fi el jamarek,Je n'ai rien à déclarer à la douane,Ich habe nichts zu verzollen,Mne nechego deklarirovat' na tamozhne,No tengo nada que declarar en la aduana.
+394,Airport Tax,darebato al mataar,Taxe d'aéroport,Flughafensteuer,Aeroportovyy sbor,Tasas de aeropuerto
+395,Aeroplane,ta'era,Avion,Flugzeug,Samolet,Avión
+396,Would you like a window or aisle seat?,hal targhabo fi maq'addin ala al nafethati aw al mamar?,Voulez-vous un siège côté hublot ou côté couloir ?,Möchten Sie einen Fenster- oder Gangplatz?,Vy khoteli by mesto u okna ili u prokhoda?,¿Le gustaría un asiento de ventana o un asiento de pasillo?
+397,You should arrive 2 hours before your flight,alaika ann tasela qabla rehlatek be sa'atain,Vous devez arriver deux heures avant votre vol,Sie sollen zwei Stunden vor Abflug eintreffen ,Vam nuzhno priekhat' za dva chasa do vashego reysa,Debería llegar 2 horas antes de su vuelo
+398,The flight is delayed,laqad ta'akharat al rehla ,Le vol est retardé,Der Flug is verspätet,Reys zaderzhivaetsya,El vuelo está retrasado
+399,Would you like a seat in economy or business class?,hal targhabo fi maq'ad ala al darajati al seyahiyyati aw darajati rejali al a'mal?,Voulez-vous être en classe économique ou affaires ?,Möchten Sie einen Sitzplatz in Economy oder Businessklasse?,Vy zhelaete mesto v ekonom- ili biznes-klasse?,¿Le gustaría un asiento en clase económica o business?
+400,You may wait in the airport lounge,yomkenoka al entetharo fi salati al mataar ,Vous pouvez attendre dans le salon de l'aéroport,Sie können in der Flughafen-Lounge warten,Vy mozhete podozhdat' v zale ozhidaniya aeroporta,Puede esperar en la sala de espera del aeropuerto
+401,Where is gate number….?,aina raqamo al bawwabati?,Où est la porte numéro … ?,Wo ist Flugsteignummer…?,Gde nakhodyatsya vykhod na posadku nomer…?,¿Dónde está la puerta número ...?
+,Seasons & Weather,al mawasem wa al taqs,Saisons et temps,Saison und Wetter,Vremena goda i pogoda,Estaciones y tiempo
+402,Season,mawsem ,Saison,Saison,Vremena goda,Estación
+403,Weather,taqs,Temps,Wetter,Pogoda,Tiempo
+404,Summer,saiyf,Eté ,Sommer,Leto,Verano
+405,Winter,sheta',Hiver,Winter,Zima,Invierno
+406,Spring,rabee',Printemps,Frühling,Vesna,Muelle
+407,Autumn,khareef,Automne,Herbst,Osen',Otoño
+408,Monsoon,reyahun mawsimiyya,Mousson,Monsun,Musson,Monzón
+409,Cold,baared ,Froid,Kalt,Kholodno,Frío
+410,Warm,daafe',Doux,Warm,Teplo,Cálido
+411,Hot,haarr,Chaud,Heiß,Zharko,Calor
+412,Snow,thalj,Neige,Schnee,Sneg,Nieve
+413,Sun,shams,Soleil,Sonne,Solntse,Sol
+414,Rain,matar,Pluie,Regen,Dozhd',Lluvia
+415,Hail,barad,Grêle,Hagel,Grad,Granizo
+416,Dust Storm,Aasefatun ramliyya,Tempête de poussière,Sandsturm,Pyl'naya burya,Tormenta de polvo
+417,Cloudy,gha'em,Nuageux,Bewölkt,Oblachno,Nublado
+418,Humidity,rotoba,Humidité,Luftfeuchtigkeit,Vlazhnost',Humedad
+,Feelings,al masha'er,Sentiments,Gefühle,Chuvstva,Sentimientos
+419,I feel…,ash'oro,Je me sens…,Ich fühle mich…,Ya chuvstvuyu sebya…,Me siento...
+420,Happy,sa'eed,Heureux,Glücklich,Schastlivyy,Feliz
+421,Sad,hazeen,Triste,Traurig,Pechalnyy,Triste
+422,Angry,ghadeb,En colère,Wütend,Serdityy,Furioso
+423,Love,hobb,Amour,Liebe,Lyubit',Amor
+424,Hate,karahiya,Haine,Hassen,Nenavidet',Odio
+425,Dislike,la yo'jeboni,Dégoût,Nicht mögen,Ne nravitsya,No me gusta
+426,Excited ,motahammes,Excité,Freuen,Vozbuzhdennyy,Emocionado
+427,Tired,mot'aab,Fatigué,Müde,Ustavshiy,Cansado
+428,We were very tired after a twelve hour flight,konna mot'abeen jeddan ba'd rehlatin estaghraqat ethnay a'sharata sa'aa,Nous étions fatigués après douze heures de vol,Wir waren sehr müde nach einem Flug von zwölf Stunden,My ochen ustali posle dvenadtsati chasov poleta,Estábamos muy cansados tras un vuelo de doce horas
+429,I'm excited about my trip to Athens,ana mutahammesson le rehlati ela athena,Je suis tout excité de partir en voyage à Athènes,Ich freue mich auf meine Reise nach Athen,Ya ochen rad moey poezdke v Afine,Estoy emocionado por mi viaje a Atenas
+430,The waiter was happy to help us find our way,kan al nadelo sa'eedan le musa'adatena fi al othoori ala tareqena ,Le serveur était heureux de nous aider à trouver notre chemin,Der Kellner hat sich gefreut uns zu helfen,Ofitsiant byl rad pomoch' nam nayti dorogu,El camarero fue muy amable al ayudarnos a encontrar el camino
+431,Bad service makes me angry,al khedmato al saye'aato taja'loni ghadeban,Le mauvais service me met en colère,Schlechte Bedienung regt mich auf,Menya zlit plokhoe obsluzhivaniye,El mal servicio me pone furioso
+432,I love you,ana Ohebbok,Je t'aime,Ich liebe dich,Ya lyublyu tebya,Te quiero
+433,I like cake,ana ohebbo al ka'ak ,J'aime les gâteaux,Ich mag Kuchen,Mne nravitsya tort,Me gusta la tarta
+,Profession,al mehna,Profession,Beruf,Professiya,Profesión
+434,I work for…,ana a'amalo le..,Je travaille pour …,Ich arbeite für…,Ya rabotayu v…,Trabajo para ...
+435,What do you do for a living?,matha ta'malo le kasbi luqmati aishek?,Que faites-vous dans la vie ?,Was machen Sie beruflich?,Chem vy zarabatyvayete sebe na zhizn'?,¿A qué te dedicas?
+436,I run my own company,ana odeero sharekati al khassa,Je dirige ma propre entreprise,Ich betreibe mein eigenes Geschäft,Ya upravlyayu sobstvennoy kompaniey,Dirijo mi propia empresa
+437,I own a book shop,ana amloko maktaba,Je tiens une librairie,Ich besitze eine Buchhandlung,Ya vladeyu knizhnym magazinom,Tengo una tienda de libros
+438,Salesperson,ba'ea',Vendeur,Verkäufer,Prodavets,Vendedor
+439,Manager,modeer,Directeur,Geschäftsführer,Menedzher,Gerente
+440,Doctor,tabeeb,Docteur,Arzt,Vrach,Doctor
+441,Lawyer,mohami,Avocat,Rechtsanwalt,Yurist,Abogado
+442,Singer,moghanni,Chanteur,Sänger,Pevets,Cantante
+443,Writer ,kateb ,Ecrivain,Schriftsteller,Pisatel',Escritor
+444,Teacher,mo'allem,Professeur,Lehrer,Uchitel',Profesor
+445,Driver,sa'eq,Chauffeur,Fahrer,Voditel',Conductor
+446,Businessman,rajolo a'mal,Homme d'affaires,Geschäftsmann,Biznesmen,Hombre de negocios
+447,Chef,tabbakh,Chef cuisinier,Koch,Shef-povar,Chef
+448,Architect,muhandesson me'mari,Architecte,Architect,Arkhitektor,Arquitecto
+449,Designer,musammem,Designer,Mediengestalter,Dizayner,Diseñador
+450,Student,taleb ,Etudiant,Student,Student,Estudiante
+451,IT Specialist,ekhtesasiyyo technologia al ma'loomat,Spécialiste en informatique,IT-Spezialist,IT-spetsialist,Especialista informático
+452,Engineer,muhandes me'mari,Ingénieur,Ingenieur,Inzhener,Ingeniero
+453,Artist,fannan,Artiste,Künstler ,Artist,Artista
+454,I am in marketing,ana fi majali al tasweeq,Je suis dans le marketing,Ich bin in dem Marketingbereich,Ya rabotayu v sfere marketinga,Estoy en marketing
+455,I am an accountant,ana muhaseb,Je suis comptable,Ich bin ein Buchhalter,Ya bukhgalter,Soy contable
+456,I'm studying physics,ana adroso al fezya',J'étudie la physique,Ich studiere Physik,Ya zanimayus izucheniyem fiziki,Estudio física
+457,Actor,mumathel,Acteur,Schauspieler,Akter,Actor
+458,Actress,mumathela,Actrice,Schauspielerin,Aktrisa,Actriz
+459,Consultant,esteshariy,Consultant,Berater,Konsul'tant,Consultor
+460,Career,wathefa,Carrière,Karriere,Kar'era,Profesión
+461,Counsellor,mustashar,Conseiller,Ratgeber,Sov'etnik,Consejero
+462,Office,maktab,Bureau,Büro,Ofis,Oficina
+,Colours,al alwan ,Couleurs,Farben,Tsveta,Colores
+463,Red,ahmar ,Rouge,Rot,Krasnyy,Rojo
+464,Orange,burtoqali,Orange,Orange,Oranzhevyy,Naranja
+465,Yellow,asfar,Jaune,Gelb,Zheltyy,Amarillo
+466,Green,akhdar,Vert,Grün,Zelenyy,Verde
+467,Blue,azraq,Bleu,Blau,Sinyy,Azul
+468,Purple,banafsajiy,Violet,Lila,Purpurnyy,Morado
+469,Pink,zahriy,Rose,Rosa,Rozovyy,Rosa
+470,Gold,thahabiy,Or ,Gold,Zolotoy,Oro
+471,Silver,feddiy,Argent,Silber,Serebryanyy,Plata
+472,White,abyad,Blanc,Weiß,Belyy,Blanco
+473,Black,aswad,Noir,Schwarz,Chernyy,Negro
+474,Avoid the dark alley way,tajannab el tareeqa al mothlem,Evitez les ruelles sombres,Vermeiden Sie die dunkle Gasse,Izbegayte temnykh pereulkov,Evite el callejón oscuro
+475,The curtains let too much light into the room,al sata'ero tasmaho lel katheeri min al dou'ee el adokhooli ela al ghorfa,Les rideaux laissent passer trop de lumière dans la pièce,Die Gardinen lassen zu viel Licht ins Zimmer,Shtory propuskayut slishkom mnogo sveta v komnatu,Las cortinas dejan pasar demasiada luz a la habitación
+476,I'm looking for a grey suit,ana abhatho ann badlatin ramadiyya,Je cherche un costume gris,Ich suche einen grauen Anzug,Ya ishu seriy kostyum,Estoy buscando un vestido gris
+,Meeting New People,muqabalat ash-khas jodud,Rencontrer de nouvelles personnes,Neue Leute kennenlernen,Znakomstva s novymi lyud'mi,Conocer a nuevas personas
+477,Where are you from?,min aina ant?,D'où venez-vous ?,Woher kommen Sie?,Otkuda vy?,¿De dónde es usted?
+478,I am from United Arab Emirates,ana min al emarati al arabiyyati al mutahida,Je viens des Emirats arabes unis,Ich bin aus den Vereinigten Arabischen Emiraten,Ya iz Ob'edinennykh Arabskikh Emiratov,Soy de los Emiratos Árabes Unidos
+479,I live in Toronto,ana a'eesho fi torento ,Je vis à Toronto,Ich wohne in Toronto,Ya zhivu v Toronto,Vivo en Toronto
+480,What are your hobbies?,ma hiya hiwayaatok?,Quels sont vos loisirs ?,Was sind Ihre Hobbies?,Kakie u vas uvlecheniya?,¿Qué aficiones tiene?
+481,I like listening to music,ana ohebbo al estema'a ela al musiqa,J'aime écouter de la musique,Ich höre gerne Musik,Ya lyublyu slushat' muzyku,Me gusta escuchar música
+482,I like riding motorbikes,ana ohebbo rukooba addarrajati al nariyya,J'aime faire de la moto,Ich fahre gerne Motorrad,Mne nravitsya ezdit' na mototsyklakh,Me gusta montar en moto
+483,Are you married?,hal anta mutazawej?,Êtes-vous marié ?,Sind Sie verheiratet?,Vy zhenaty (zamuzhem)?,¿Está casado?
+484,I am single,ana a'azab,Je suis célibataire,Ich bin ledig,Ya kholost (ne zamuzhem),Estoy soltero
+485,What is your favourite movie?,ma howa filmoka al mufaddal ?,Quel est votre film préféré ?,Was ist Ihr Lieblingsfilm?,Kakoy vas lyubimyy film?,¿Cuál es su película favorita?
+486,I like action and comedy,ana ohebbo aflama al harakati wal Comedia ,J'aime les films d'action et les comédies,I mag gerne Komödie und Actionfilme,Mne nravyatsya boeviki I komedii,Me gusta la acción y la comedia
+487,Have you travelled to many places?,hal safrta ela amakena a'deeda,Avez-vous beaucoup voyagé ?,Sind Sie schon viel gereist?,Vy mnogo gde puteshestvovali?,¿Ha viajado a muchos lugares?
+488,"Yes, I have travelled through Europe","na'am, safarto hawla Ouroppa","Oui, j'ai voyagé dans toute l'Europe","Ja, ich bin durch Europa gereist","Da, ya puteshestvoval po vsey Yevrope","Sí, he viajado por toda Europa"
+489,Is this seat taken?,hal hatha al maq'ado ma'khooth?,Est-ce que cette place est prise ?,Ist dieser Platz frei?,Eto mesto zanyato?,¿Está ocupado este asiento?
+490,I like your sense of humour!,ohebbo rouha al do'aaba allati tatahalla beha!,J'aime votre sens de l'humour !,Ich mag Ihren Humor!,Mne nravitsya vashe chuvstvo yumora!,¡Me gusta su sentido del humor!
+491,"Thanks, I appreciate that.","shukran, ana oqaddero thalek.","Merci, j'apprécie cela.","Vielen Dank, sehr nett von Ihnen.","Spasibo, ya tsenyu eto","Gracias, se lo agradezco."
+492,Would you like to share a sushi platter?,hal targhabo fi musharaketi tabaqin min al sushi?,Voudriez-vous partager un plat de sushis ?,Möchten Sie eine Sushiplatte teilen?,Ne khoteli by vy razdelit' so mnoy blyudo s sushi?,¿Le gustaría compartir una bandeja de sushi?
+493,That's nice!,hatha lateef,C'est super !,Das ist schön!,Prekrasno!,¡Estaría bien!
