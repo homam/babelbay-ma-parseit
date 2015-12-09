@@ -2,7 +2,6 @@
 
 module Lib (
     someFunc
-  , csvFilePath
 ) where
 
 import Prelude hiding (words)
@@ -25,23 +24,19 @@ import Control.Monad.Identity
 
 
 
-csvFilePath :: FilePath
-csvFilePath = "./final.csv"
-
-
 
 data CFlashcard = CFlashcard {
-      cflashCardIndex :: Integer
-    , question :: String
-    , answer :: String
-    , quiz :: [String]
-  } deriving Show
+    cflashCardIndex :: Integer
+  , question :: String
+  , answer :: String
+  , quiz :: [String]
+} deriving Show
 
 data CChapter = CChapter {
-      cchapterIndex :: Integer
-    , ctitle :: String
-    , ccards :: [CFlashcard]
-}
+    cchapterIndex :: Integer
+  , ctitle :: String
+  , ccards :: [CFlashcard]
+} deriving Show
 
 
 data CCourseIntro = CCourseIntro {
@@ -57,13 +52,17 @@ data CCourseIntroFC a = CCourseIntroFC {
   , ccourseIntroFCLongAnswer :: a
 } deriving Show
 
+data CCourse = CCourse {
+    ccourseIntro :: CCourseIntro
+  , ccourseChapters :: [CChapter]
+} deriving Show
 
 data CCourseMeta = CCourseMeta {
     native :: String
   , target :: String
   , courseId :: Integer
   , ccourseKey :: String
-}
+} deriving Show
 
 
 newtype CSVDataConversion a = CSVDataConversion {
@@ -108,21 +107,51 @@ toCCourseIntroFC native fc =
   }
 
 
-toCChapter :: (RandomGen g, S.MonadState g m) => Language -> Language -> Chapter -> m CChapter
-toCChapter = undefined
+toCChapter :: Chapter -> CSVDataConversion CChapter
+toCChapter chapter = do
+  config <- R.ask
+  let questions = csvChapterCards chapter
+  -- let (cs, _) = runCSVDataConversion (mapM (toCFlashcard questions) $ csvChapterCards chapter) g config
+  cs <- mapM (toCFlashcard questions) $ csvChapterCards chapter
+  return CChapter {
+      cchapterIndex = csvChapterIndex chapter
+    , ctitle = csvChapterDic chapter M.! native config
+    , ccards = cs
+  }
 
+toCCourse :: CSVCourseIntro -> [Chapter] -> CSVDataConversion CCourse
+toCCourse intro chapters = do
+  intro' <- toCCourseIntro intro
+  chapters' <- mapM toCChapter chapters
+  return CCourse {
+      ccourseIntro = intro'
+    , ccourseChapters = chapters'
+  }
 
 
 someFunc :: IO ()
 someFunc = do
-  file <- readFile csvFilePath
+  file <- readFile "./final.csv"
+  csvData <- BL.readFile "./content/en-Table 1.csv"
   let chapters = toChapters file
-  let oneChapter = head chapters
-  let questions = csvChapterCards oneChapter
+  let intro = toCourseIntro csvData
   let course = CCourseMeta {native = "es", target = "en", courseId = 1, ccourseKey = "es-en"}
   g <- newStdGen
-  let (cs, _) = runCSVDataConversion (mapM (toCFlashcard questions) $ csvChapterCards $ head chapters) g course
-  putStrLn $ showTopElement $ collElement "cards" $ map cFlashcardToXml cs
+  -- let oneChapter = head chapters
+  -- let questions = csvChapterCards oneChapter
+  -- let (cs, _) = runCSVDataConversion (mapM (toCFlashcard questions) $ csvChapterCards $ head chapters) g course
+  -- putStrLn $ showTopElement $ collElement "cards" $ map cFlashcardToXml cs
+
+  -- let (cchapters, _) = runCSVDataConversion (mapM toCChapter chapters) g course
+  -- print cchapters
+
+  let c = liftM2 (\x y -> runCSVDataConversion (toCCourse x y) g course) intro (Right chapters)
+  --let (ccourse, _) = runCSVDataConversion (toCCourse intro chapters) g course
+  write c
+  where
+    write (Left err) = putStrLn err
+    write (Right (c, _)) = putStrLn $ ppcTopElement prettyConfigPP $ collElement "chapters" $ map cChapterToXml (ccourseChapters c)
+
 
 
 
@@ -131,16 +160,14 @@ someFunc = do
 duck :: IO ()
 duck = do
   csvData <- BL.readFile "./content/en-Table 1.csv"
+  let xs = toCCourseIntro <$> toCourseIntro csvData
+  g <- newStdGen
   let course = CCourseMeta {native = "es", target = "en", courseId = 1, ccourseKey = "es-en"}
-  let xs = toCourseIntro csvData
-  write course xs
+  let c = (\x -> runCSVDataConversion x g course) <$> xs
+  write c
   where
-    write :: CCourseMeta -> Either String CSVCourseIntro -> IO ()
-    write _ (Left err) = putStrLn err
-    -- write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
-    write course (Right xs) = do
-      g <- newStdGen
-      print $ runCSVDataConversion (toCCourseIntro xs) g course
+    write (Left err) = putStrLn err
+    write (Right c) = print c
 
 
 
@@ -181,5 +208,16 @@ cFlashcardToXml card = Element
   [
       Elem $ textElement "FCQuestion" (question card)
     , Elem $ textElement "FCAnswer" (question card)
+  ]
+  Nothing
+
+cChapterToXml :: CChapter -> Element
+cChapterToXml chapter = Element
+  (unqual "chapter")
+  [
+    Attr {attrKey = QName { qName = "index", qURI = Nothing, qPrefix = Nothing }, attrVal = show $ cchapterIndex chapter}
+  ]
+  [
+    Elem $ collElement "cards" (map cFlashcardToXml $ ccards chapter)
   ]
   Nothing
