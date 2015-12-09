@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-}
+{-# LANGUAGE OverloadedStrings, ScopedTypeVariables, GeneralizedNewtypeDeriving, RankNTypes #-}
 
 module Lib (
     someFunc
@@ -14,32 +14,20 @@ import System.Random
 import Control.Monad.Trans
 import Control.Monad.Trans.State
 import qualified Control.Monad.State as S
+import qualified Control.Monad.Reader as R
 import Rand
 import CSVParsers
 import qualified Data.Text as T
-import Data.List.Split (splitOn, splitWhen)
-
-
 import qualified Data.ByteString.Lazy as BL
-import Data.Csv
-import qualified Data.Vector as V
 import Data.Either
+import Control.Monad.Trans.Reader
+import Control.Monad.Identity
 
 
 
 csvFilePath :: FilePath
 csvFilePath = "./final.csv"
 
-
-someFunc :: IO ()
-someFunc = do
-  file <- readFile csvFilePath
-  let chapters = toChapters file
-  let oneChapter = head chapters
-  let questions = csvChapterCards oneChapter
-  g <- newStdGen
-  let (cs, _) = runEval g $ mapM (toCFlashcard "es" "en" questions) $ csvChapterCards $ head chapters
-  putStrLn $ showTopElement $ collElement "cards" $ map cFlashcardToXml cs
 
 
 data CFlashcard = CFlashcard {
@@ -55,127 +43,104 @@ data CChapter = CChapter {
     , ccards :: [CFlashcard]
 }
 
-data CCourse = CCourse {
-      courseId :: Integer
-    , ccourseKey :: String
-    , ccourseIntro :: CCourseIntro
-}
 
 data CCourseIntro = CCourseIntro {
-      ccourseIntroTitle :: String
-    , ccourseIntroIntroTitle :: String
-    , ccourseIntroFCs :: [CCourseIntroFC]
+    ccourseTitle :: String
+  , ccourseIntroTitle :: String
+  , ccourseIntroFC1 :: CCourseIntroFC String
+  , ccourseIntroFC2 :: CCourseIntroFC [String]
 } deriving Show
 
-data CCourseIntroFC = CCourseIntroFC {
-      ccourseIntroFCQuestion :: String
-    , ccourseIntroFCShortAnswer :: String
-    , ccourseIntroFCLongAnswer :: [String]
+data CCourseIntroFC a = CCourseIntroFC {
+    ccourseIntroFCQuestion :: String
+  , ccourseIntroFCShortAnswer :: String
+  , ccourseIntroFCLongAnswer :: a
 } deriving Show
 
 
+data CCourseMeta = CCourseMeta {
+    native :: String
+  , target :: String
+  , courseId :: Integer
+  , ccourseKey :: String
+}
 
-toCFlashcard :: (RandomGen g, S.MonadState g m) => Language -> Language -> [Flashcard] -> Flashcard -> m CFlashcard
-toCFlashcard native target questions flashcard = do
+
+newtype CSVDataConversion a = CSVDataConversion {
+  unCSVDataConversion :: ReaderT CCourseMeta (StateT StdGen Identity) a
+} deriving (Functor, Applicative, Monad, R.MonadReader CCourseMeta, S.MonadState StdGen)
+
+runCSVDataConversion :: CSVDataConversion a -> StdGen -> CCourseMeta -> (a, StdGen)
+runCSVDataConversion k g course =
+  let state = g
+  in runIdentity $ runStateT (runReaderT (unCSVDataConversion k) course) state
+
+
+toCFlashcard :: [Flashcard] -> Flashcard -> CSVDataConversion CFlashcard
+toCFlashcard questions flashcard = do
+  config <- R.ask
   let dic = csvFCDic flashcard
       index = csvFCIndex flashcard
-      answer = dic M.! native
-      question = dic M.! target
-  quiz <- (question :) . map ((M.! target) . csvFCDic) . take 3 <$> randomize (filter ((/= index) . csvFCIndex) questions)
+      answer = dic M.! native config
+      question = dic M.! target config
+  quiz <- (question :) . map ((M.! target config) . csvFCDic) . take 3 <$> randomize (filter ((/= index) . csvFCIndex) questions)
   return CFlashcard {cflashCardIndex = index, question = question, answer = answer, quiz = quiz}
+
+toCCourseIntro :: CSVCourseIntro -> CSVDataConversion CCourseIntro
+toCCourseIntro intro = do
+  config <- R.ask
+  return CCourseIntro {
+      ccourseTitle = csvCourseTitle intro M.! native config
+    , ccourseIntroTitle = csvCourseIntroTitle intro M.! native config
+    , ccourseIntroFC1 = toCCourseIntroFC (native config) (csvCourseIntroFC1 intro)
+    , ccourseIntroFC2 = toCCourseIntroFC (native config) (csvCourseIntroFC2 intro)
+}
+
+toCCourseIntroFC :: String -> CSVCourseIntroFlashcard a -> CCourseIntroFC a
+toCCourseIntroFC native fc =
+  let question = csvCiFcQuestion fc
+      shortAnswer = csvCiFcShortAns fc
+      longAnswer = csvCiFcLongAns fc
+  in CCourseIntroFC {
+      ccourseIntroFCQuestion = question M.! native
+    , ccourseIntroFCShortAnswer = shortAnswer M.! native
+    , ccourseIntroFCLongAnswer = longAnswer M.! native
+  }
 
 
 toCChapter :: (RandomGen g, S.MonadState g m) => Language -> Language -> Chapter -> m CChapter
 toCChapter = undefined
 
 
+
+someFunc :: IO ()
+someFunc = do
+  file <- readFile csvFilePath
+  let chapters = toChapters file
+  let oneChapter = head chapters
+  let questions = csvChapterCards oneChapter
+  let course = CCourseMeta {native = "es", target = "en", courseId = 1, ccourseKey = "es-en"}
+  g <- newStdGen
+  let (cs, _) = runCSVDataConversion (mapM (toCFlashcard questions) $ csvChapterCards $ head chapters) g course
+  putStrLn $ showTopElement $ collElement "cards" $ map cFlashcardToXml cs
+
+
+
 ---
-
-type DicOf a = M.Map Language a
-
-data CSVCourseIntro = CSVCourseIntro {
-    csvCourseTitle :: Dic
-  , csvCourseIntroTitle :: Dic
-  , csvCourseIntroFC1 :: CSVCourseIntroFlashcard String
-  , csvCourseIntroFC2 :: CSVCourseIntroFlashcard [String]
-} deriving Show
-
-data CSVCourseIntroFlashcard a = CSVCourseIntroFlashcard {
-    csvCiFcQuestion :: Dic
-  , csvCiFcShortAns :: Dic
-  , csvCiFcLongAns  :: DicOf a
-} deriving Show
-
-emptyCsvCourseIntroFlashcard = CSVCourseIntroFlashcard {
-    csvCiFcQuestion = M.empty
-  , csvCiFcShortAns = M.empty
-  , csvCiFcLongAns = M.empty
-}
-
-emptyCsvCourseIntro = CSVCourseIntro {
-    csvCourseTitle = M.empty
-  , csvCourseIntroTitle = M.empty
-  , csvCourseIntroFC1 = emptyCsvCourseIntroFlashcard
-  , csvCourseIntroFC2 = emptyCsvCourseIntroFlashcard
-}
 
 duck :: IO ()
 duck = do
   csvData <- BL.readFile "./content/en-Table 1.csv"
-  let xs = csvVectorToCourseIntro <$> decode NoHeader csvData
-  write xs
+  let course = CCourseMeta {native = "es", target = "en", courseId = 1, ccourseKey = "es-en"}
+  let xs = toCourseIntro csvData
+  write course xs
   where
-    write :: Either String CSVCourseIntro -> IO ()
-    write (Left err) = putStrLn err
-    write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
-
-
-csvVectorToCourseIntro :: V.Vector [String] -> CSVCourseIntro
-csvVectorToCourseIntro = go emptyCsvCourseIntro where
-  fieldMap v = M.fromList [
-        ("1-title", \ val -> v {csvCourseTitle = val} ) -- courseTitle
-      , ("intro_title", \ val -> v {csvCourseIntroTitle = val})
-      , ("intro_fc-1_q", \ val -> updateFC1 $ \ fc -> fc {csvCiFcQuestion = val})
-      , ("intro_fc-1_a_short", \ val -> updateFC1 $ \ fc -> fc {csvCiFcShortAns = val})
-      , ("intro_fc-1_a_long", \ val -> updateFC1 $ \ fc -> fc {csvCiFcLongAns = val})
-      , ("intro_fc-2_q", \ val -> updateFC2 $ \ fc -> fc {csvCiFcQuestion = val})
-      , ("intro_fc-2_a_short", \ val -> updateFC2 $ \ fc -> fc {csvCiFcShortAns = val})
-      , ("intro_fc-2_a_long", \ val -> updateFC2 $ \ fc -> fc {csvCiFcLongAns = M.map (map (T.unpack . T.strip . T.pack) . filter ((>1) . length) . splitOn "*") val })
-    ] where
-      updateFC1 f =
-        let fc = csvCourseIntroFC1 v
-            fc' = f fc
-        in
-        v { csvCourseIntroFC1 = fc' }
-
-      updateFC2 f =
-        let fc = csvCourseIntroFC2 v
-            fc' = f fc
-        in
-        v { csvCourseIntroFC2 = fc' }
-  go = V.foldl $ \ intro (xs :: [String]) -> do
-      let f = M.lookup (xs !! 1) (fieldMap intro)
-      maybe intro ($ M.fromList $ ["en","es","fr","de","ru","ar"] `zip` drop 2 xs) f
-
-
-duck2 :: IO ()
-duck2 = do
-  csvData <- BL.readFile "./content/en-Table 1.csv"
-  let xs = go CCourseIntro {ccourseIntroTitle = "", ccourseIntroIntroTitle = "", ccourseIntroFCs = []} (decode NoHeader csvData)
-  write xs
-  where
-    write (Left err) = putStrLn err
-    write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
-
-    go _ (Left err) = Left err
-    go intro (Right v) = V.foldM (\ intro' (xs :: [String]) ->
-        -- print xs
-        -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
-        if "1-title" == xs !! 1 then
-          return $ intro' {ccourseIntroTitle = xs !! 2}
-        else
-          return intro' -- $ xs ++ ys
-        ) intro v
+    write :: CCourseMeta -> Either String CSVCourseIntro -> IO ()
+    write _ (Left err) = putStrLn err
+    -- write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
+    write course (Right xs) = do
+      g <- newStdGen
+      print $ runCSVDataConversion (toCCourseIntro xs) g course
 
 
 
