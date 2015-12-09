@@ -122,39 +122,40 @@ emptyCsvCourseIntro = CSVCourseIntro {
 duck :: IO ()
 duck = do
   csvData <- BL.readFile "./content/en-Table 1.csv"
-  let xs = csvVectorToCourseIntro emptyCsvCourseIntro <$> decode NoHeader csvData
+  let xs = csvVectorToCourseIntro <$> decode NoHeader csvData
   write xs
   where
     write :: Either String CSVCourseIntro -> IO ()
     write (Left err) = putStrLn err
     write (Right xs) = print xs -- writeFile "out.txt" $ foldl1 (\a b -> a ++ "\n" ++ b) xs
 
-fieldMap v = M.fromList [
-      ("1-title", \ val -> v {csvCourseTitle = val} ) -- courseTitle
-    , ("intro_title", \ val -> v {csvCourseIntroTitle = val})
-    , ("intro_fc-1_q", \ val -> updateFC1 $ \ fc -> fc {csvCiFcQuestion = val})
-    , ("intro_fc-1_a_short", \ val -> updateFC1 $ \ fc -> fc {csvCiFcShortAns = val})
-    , ("intro_fc-1_a_long", \ val -> updateFC1 $ \ fc -> fc {csvCiFcLongAns = val})
-    , ("intro_fc-2_q", \ val -> updateFC2 $ \ fc -> fc {csvCiFcQuestion = val})
-    , ("intro_fc-2_a_short", \ val -> updateFC2 $ \ fc -> fc {csvCiFcShortAns = val})
-    , ("intro_fc-2_a_long", \ val -> updateFC2 $ \ fc -> fc {csvCiFcLongAns = M.map (map (T.unpack . T.strip . T.pack) . filter ((>1) . length) . splitOn "*") val })
-  ] where
-    updateFC1 f =
-      let fc = csvCourseIntroFC1 v
-          fc' = f fc
-      in
-      v { csvCourseIntroFC1 = fc' }
 
-    updateFC2 f =
-      let fc = csvCourseIntroFC2 v
-          fc' = f fc
-      in
-      v { csvCourseIntroFC2 = fc' }
+csvVectorToCourseIntro :: V.Vector [String] -> CSVCourseIntro
+csvVectorToCourseIntro = go emptyCsvCourseIntro where
+  fieldMap v = M.fromList [
+        ("1-title", \ val -> v {csvCourseTitle = val} ) -- courseTitle
+      , ("intro_title", \ val -> v {csvCourseIntroTitle = val})
+      , ("intro_fc-1_q", \ val -> updateFC1 $ \ fc -> fc {csvCiFcQuestion = val})
+      , ("intro_fc-1_a_short", \ val -> updateFC1 $ \ fc -> fc {csvCiFcShortAns = val})
+      , ("intro_fc-1_a_long", \ val -> updateFC1 $ \ fc -> fc {csvCiFcLongAns = val})
+      , ("intro_fc-2_q", \ val -> updateFC2 $ \ fc -> fc {csvCiFcQuestion = val})
+      , ("intro_fc-2_a_short", \ val -> updateFC2 $ \ fc -> fc {csvCiFcShortAns = val})
+      , ("intro_fc-2_a_long", \ val -> updateFC2 $ \ fc -> fc {csvCiFcLongAns = M.map (map (T.unpack . T.strip . T.pack) . filter ((>1) . length) . splitOn "*") val })
+    ] where
+      updateFC1 f =
+        let fc = csvCourseIntroFC1 v
+            fc' = f fc
+        in
+        v { csvCourseIntroFC1 = fc' }
 
-csvVectorToCourseIntro :: CSVCourseIntro -> V.Vector [String] -> CSVCourseIntro
-csvVectorToCourseIntro = V.foldl $ \ intro (xs :: [String]) -> do
-    let f = M.lookup (xs !! 1) (fieldMap intro)
-    maybe intro ($ M.fromList $ ["en","es","fr","de","ru","ar"] `zip` drop 2 xs) f
+      updateFC2 f =
+        let fc = csvCourseIntroFC2 v
+            fc' = f fc
+        in
+        v { csvCourseIntroFC2 = fc' }
+  go = V.foldl $ \ intro (xs :: [String]) -> do
+      let f = M.lookup (xs !! 1) (fieldMap intro)
+      maybe intro ($ M.fromList $ ["en","es","fr","de","ru","ar"] `zip` drop 2 xs) f
 
 
 duck2 :: IO ()
