@@ -53,6 +53,8 @@ data Chapter = Chapter {
 } deriving Show
 
 
+csvVectorToMatrix :: V.Vector [String] -> [[String]]
+csvVectorToMatrix = V.toList
 
 parseCSV :: String -> [[String]]
 parseCSV = map (splitOn ",") . lines
@@ -67,12 +69,17 @@ toFlashcard list = Flashcard (read $ head list) (toDic $ drop 1 list)
 toDic :: [String] -> M.Map Language String
 toDic list = M.fromList $ ["en","ar","fr","de","ru","es"] `zip` list
 
--- @file@ is the full content of a CSV file
-toChapters :: String -> [Chapter]
-toChapters file =
-  let csv = parseCSV file
+csvToChapters :: V.Vector [String] -> [Chapter]
+csvToChapters file =
+  let csv = csvVectorToMatrix file
       schapters = drop 1 $ splitWhen ((== "") . head) csv
   in zipWith toChapter schapters [1 ..]
+
+
+-- exported
+toChapters :: BL.ByteString -> Either String [Chapter]
+toChapters csvData = csvToChapters <$> decode NoHeader csvData
+
 
 
 -- Descriptions
@@ -135,5 +142,6 @@ csvVectorToCourseIntro = go emptyCsvCourseIntro where
       maybe intro ($ M.fromList $ ["en","es","fr","de","ru","ar"] `zip` drop 2 xs) f
 
 
+-- exported
 toCourseIntro :: BL.ByteString -> Either String CSVCourseIntro
 toCourseIntro csvData = csvVectorToCourseIntro <$> decode NoHeader csvData

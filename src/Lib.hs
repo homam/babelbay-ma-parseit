@@ -70,9 +70,7 @@ newtype CSVDataConversion a = CSVDataConversion {
 } deriving (Functor, Applicative, Monad, R.MonadReader CCourseMeta, S.MonadState StdGen)
 
 runCSVDataConversion :: CSVDataConversion a -> StdGen -> CCourseMeta -> (a, StdGen)
-runCSVDataConversion k g course =
-  let state = g
-  in runIdentity $ runStateT (runReaderT (unCSVDataConversion k) course) state
+runCSVDataConversion k g course = runIdentity $ runStateT (runReaderT (unCSVDataConversion k) course) g
 
 
 toCFlashcard :: [Flashcard] -> Flashcard -> CSVDataConversion CFlashcard
@@ -131,9 +129,10 @@ toCCourse intro chapters = do
 
 someFunc :: IO ()
 someFunc = do
-  file <- readFile "./final.csv"
+  file <- BL.readFile "./final.csv"
   csvData <- BL.readFile "./content/en-Table 1.csv"
   let chapters = toChapters file
+  -- either print (\ xs -> print $ head xs) chapters
   let intro = toCourseIntro csvData
   let course = CCourseMeta {native = "es", target = "en", courseId = 1, ccourseKey = "es-en"}
   g <- newStdGen
@@ -145,12 +144,12 @@ someFunc = do
   -- let (cchapters, _) = runCSVDataConversion (mapM toCChapter chapters) g course
   -- print cchapters
 
-  let c = liftM2 (\x y -> runCSVDataConversion (toCCourse x y) g course) intro (Right chapters)
+  let c = liftM2 (\x y -> runCSVDataConversion (toCCourse x y) g course) intro chapters
   --let (ccourse, _) = runCSVDataConversion (toCCourse intro chapters) g course
   write c
   where
     write (Left err) = putStrLn err
-    write (Right (c, _)) = putStrLn $ ppcTopElement prettyConfigPP $ collElement "chapters" $ map cChapterToXml (ccourseChapters c)
+    write (Right (c, _)) = putStrLn $ ppcTopElement prettyConfigPP $ collElement "BookSummary" $ map cChapterToXml (ccourseChapters c)
 
 
 
@@ -194,6 +193,12 @@ textElement name content = Element
   ]
   Nothing
 
+addAttr :: (String, String) -> Element -> Element
+addAttr (name, value) elem =
+  let attr = Attr {attrKey = QName { qName = name, qURI = Nothing, qPrefix = Nothing }, attrVal = value}
+  in add_attr attr elem
+
+
 collElement :: String -> [Element] -> Element
 collElement name children = Element
   (unqual name)
@@ -203,21 +208,25 @@ collElement name children = Element
 
 cFlashcardToXml :: CFlashcard -> Element
 cFlashcardToXml card = Element
-  (unqual "flashCard")
+  (unqual "QAFlashCard")
   []
   [
       Elem $ textElement "FCQuestion" (question card)
-    , Elem $ textElement "FCAnswer" (question card)
+    , Elem $ collElement "FCAnswer" [textElement "text" $ answer card]
+    , Elem $ collElement "quiz" [elemQuestion (answer card) (quiz card)]
   ]
   Nothing
+  where
+    elemQuestion :: String -> [String] -> Element
+    elemQuestion title options = addAttr ("layout", "text") $ collElement "question" $ textElement "title" title : elemOptions options
+
+    elemOptions (correct:wrongs) = addAttr ("correct", "true") (textElement "option" correct) : map (addAttr ("correct", "false") . textElement "option") wrongs
 
 cChapterToXml :: CChapter -> Element
 cChapterToXml chapter = Element
   (unqual "chapter")
   [
-    Attr {attrKey = QName { qName = "index", qURI = Nothing, qPrefix = Nothing }, attrVal = show $ cchapterIndex chapter}
+    Attr {attrKey = QName { qName = "key", qURI = Nothing, qPrefix = Nothing }, attrVal = show $ cchapterIndex chapter}
   ]
-  [
-    Elem $ collElement "cards" (map cFlashcardToXml $ ccards chapter)
-  ]
+  ((Elem $ textElement "title" (ctitle chapter)) : map (Elem . cFlashcardToXml) (ccards chapter))
   Nothing
