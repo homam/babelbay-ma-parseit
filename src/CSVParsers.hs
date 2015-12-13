@@ -3,14 +3,14 @@
 module CSVParsers (
     Language
   , Dic
-  , Flashcard
+  , CSVFlashcard
   , csvFCDic
   , csvFCIndex
-  , Chapter
+  , CSVChapter
   , csvChapterIndex
   , csvChapterDic
   , csvChapterCards
-  , toChapters
+  , toCSVChapters
   , DicOf
   , CSVCourseIntro
   , csvCourseTitle
@@ -21,7 +21,7 @@ module CSVParsers (
   , csvCiFcQuestion
   , csvCiFcShortAns
   , csvCiFcLongAns
-  , toCourseIntro
+  , toCSVCourseIntro
 ) where
 
 import qualified Data.Map as M
@@ -41,15 +41,15 @@ type Language = String
 
 type Dic = M.Map Language String
 
-data Flashcard = Flashcard {
+data CSVFlashcard = Flashcard {
     csvFCIndex :: Integer
   , csvFCDic :: Dic
 } deriving Show
 
-data Chapter = Chapter {
+data CSVChapter = CSVChapter {
     csvChapterIndex :: Integer
   , csvChapterDic :: Dic
-  , csvChapterCards :: [Flashcard]
+  , csvChapterCards :: [CSVFlashcard]
 } deriving Show
 
 
@@ -60,25 +60,25 @@ parseCSV :: String -> [[String]]
 parseCSV = map (splitOn ",") . lines
 
 
-toChapter :: [[String]] -> Integer -> Chapter
-toChapter matrix index = Chapter index (toDic $ drop 1 $ head matrix) (map toFlashcard $ drop 1 matrix)
+toCSVChapter :: [[String]] -> Integer -> CSVChapter
+toCSVChapter matrix index = CSVChapter index (toDic $ drop 1 $ head matrix) (map toFlashcard $ drop 1 matrix)
 
-toFlashcard :: [String] -> Flashcard
+toFlashcard :: [String] -> CSVFlashcard
 toFlashcard list = Flashcard (read $ head list) (toDic $ drop 1 list)
 
 toDic :: [String] -> M.Map Language String
 toDic list = M.fromList $ ["en","ar","fr","de","ru","es"] `zip` list
 
-csvToChapters :: V.Vector [String] -> [Chapter]
+csvToChapters :: V.Vector [String] -> [CSVChapter]
 csvToChapters file =
   let csv = csvVectorToMatrix file
       schapters = drop 1 $ splitWhen ((== "") . head) csv
-  in zipWith toChapter schapters [1 ..]
+  in zipWith toCSVChapter schapters [1 ..]
 
 
 -- exported
-toChapters :: BL.ByteString -> Either String [Chapter]
-toChapters csvData = csvToChapters <$> decode NoHeader csvData
+toCSVChapters :: BL.ByteString -> Either String [CSVChapter]
+toCSVChapters csvData = csvToChapters <$> decode NoHeader csvData
 
 
 
@@ -143,5 +143,5 @@ csvVectorToCourseIntro = go emptyCsvCourseIntro where
 
 
 -- exported
-toCourseIntro :: BL.ByteString -> Either String CSVCourseIntro
-toCourseIntro csvData = csvVectorToCourseIntro <$> decode NoHeader csvData
+toCSVCourseIntro :: BL.ByteString -> Either String CSVCourseIntro
+toCSVCourseIntro csvData = csvVectorToCourseIntro <$> decode NoHeader csvData
