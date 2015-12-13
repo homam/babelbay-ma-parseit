@@ -44,10 +44,6 @@ data CSVChapter = CSVChapter {
 csvVectorToMatrix :: V.Vector [String] -> [[String]]
 csvVectorToMatrix = V.toList
 
-parseCSV :: String -> [[String]]
-parseCSV = map (splitOn ",") . lines
-
-
 toCSVChapter :: [[String]] -> Integer -> CSVChapter
 toCSVChapter matrix index = CSVChapter index (toDic $ drop 1 $ head matrix) (map toFlashcard $ drop 1 matrix)
 
@@ -63,10 +59,6 @@ csvToChapters file =
       schapters = drop 1 $ splitWhen ((== "") . head) csv
   in zipWith toCSVChapter schapters [1 ..]
 
-
-csvFirstCol :: String -> Either String (Integer, Integer, String)
-csvFirstCol col = readEither col :: Either String (Integer, Integer, String)
-
 -- exported
 toCSVChapters :: BL.ByteString -> Either String [CSVChapter]
 toCSVChapters csvData = csvToChapters <$> decode NoHeader csvData
@@ -76,6 +68,13 @@ toCSVChapters csvData = csvToChapters <$> decode NoHeader csvData
 -- Descriptions
 
 
+data CSVLanguage = Arabic | English | Spanish | German | French | Russian deriving (Read, Show, Eq, Ord, Enum)
+
+data CSVCourseMeta = CSVCourseMeta {
+    csvCourseMetaLanguage :: CSVLanguage
+  , csvCourseMetaIds :: [Integer]
+}
+
 type DicOf a = M.Map Language a
 
 data CSVCourseIntro = CSVCourseIntro {
@@ -83,6 +82,8 @@ data CSVCourseIntro = CSVCourseIntro {
   , csvCourseIntroTitle :: Dic
   , csvCourseIntroFC1 :: CSVCourseIntroFlashcard String
   , csvCourseIntroFC2 :: CSVCourseIntroFlashcard [String]
+  , csvCourseIntroLanguage :: CSVLanguage
+  , csvCourseIntroCourseId :: Integer
 } deriving Show
 
 data CSVCourseIntroFlashcard a = CSVCourseIntroFlashcard {
@@ -102,7 +103,13 @@ emptyCsvCourseIntro = CSVCourseIntro {
   , csvCourseIntroTitle = M.empty
   , csvCourseIntroFC1 = emptyCsvCourseIntroFlashcard
   , csvCourseIntroFC2 = emptyCsvCourseIntroFlashcard
+  , csvCourseIntroLanguage = undefined
+  , csvCourseIntroCourseId = undefined
 }
+
+
+csvFirstCol :: String -> Either String (Integer, Integer, CSVLanguage)
+csvFirstCol col = readEither col :: Either String (Integer, Integer, CSVLanguage)
 
 
 csvVectorToCourseIntro :: V.Vector [String] -> CSVCourseIntro
