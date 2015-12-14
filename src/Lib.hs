@@ -10,23 +10,12 @@ module Lib (
   , chapterIndex
   , chapterTitle
   , chapterCards
-  , CourseIntro
-  , courseTitle
-  , courseIntroTitle
-  , courseIntroFC1
-  , courseIntroFC2
-  , CourseIntroFlashcard
-  , courseIntroFCQuestion
-  , courseIntroFCShortAnswer
-  , courseIntroFCLongAnswer
+  , CourseIntro (..)
+  , CourseIntroFlashcard (..)
   , Course
   , courseIntro
   , courseChapters
-  , CourseMeta
-  , native
-  , target
-  , courseId
-  , courseKey
+  , CourseMeta (..)
   , makeCourseMeta
   , toCourse
   , CSVDataConversion
@@ -66,6 +55,8 @@ data Chapter = Chapter {
 
 data CourseIntro = CourseIntro {
     courseTitle :: String
+  , courseId :: Integer
+  , courseLanguage :: CSVLanguage
   , courseIntroTitle :: String
   , courseIntroFC1 :: CourseIntroFlashcard String
   , courseIntroFC2 :: CourseIntroFlashcard [String]
@@ -85,16 +76,12 @@ data Course = Course {
 data CourseMeta = CourseMeta {
     native :: Language
   , target :: Language
-  , courseId :: Integer
-  , courseKey :: String
 } deriving Show
 
-makeCourseMeta :: Language -> Language -> Integer -> String -> CourseMeta
-makeCourseMeta native target courseId courseKey = CourseMeta {
+makeCourseMeta :: Language -> Language -> CourseMeta
+makeCourseMeta native target = CourseMeta {
       native = native
     , target = target
-    , courseId = courseId
-    , courseKey = courseKey
   }
 
 
@@ -116,16 +103,21 @@ toFlashcard questions flashcard = do
   quiz <- (question :) . map ((M.! target config) . csvFCDic) . take 3 <$> randomize (filter ((/= index) . csvFCIndex) questions)
   return Flashcard {flashCardIndex = index, question = question, answer = answer, quiz = quiz}
 
-toCourseIntro :: CSVCourseIntro -> CSVDataConversion CourseIntro
+toCourseIntro :: CSVCourseIntro -> CSVDataConversion [CourseIntro]
 toCourseIntro intro = do
   config <- R.ask
   let nativeLang = native config
-  return CourseIntro {
-      courseTitle = csvCourseTitle intro M.! nativeLang
-    , courseIntroTitle = csvCourseIntroTitle intro M.! nativeLang
-    , courseIntroFC1 = toCourseIntroFlashcard nativeLang (csvCourseIntroFC1 intro)
-    , courseIntroFC2 = toCourseIntroFlashcard nativeLang (csvCourseIntroFC2 intro)
-}
+  let meta = csvCourseMeta intro
+  return $ map
+    (\ (ctitle, cid) -> CourseIntro {
+        courseTitle = ctitle intro M.! nativeLang
+      , courseId = cid meta
+      , courseLanguage = csvCourseMetaLanguage meta
+      , courseIntroTitle = csvCourseIntroTitle intro M.! nativeLang
+      , courseIntroFC1 = toCourseIntroFlashcard nativeLang (csvCourseIntroFC1 intro)
+      , courseIntroFC2 = toCourseIntroFlashcard nativeLang (csvCourseIntroFC2 intro)
+    })
+    [(csvCourseTitle1, csvCourseMetaId1), (csvCourseTitle2, csvCourseMetaId1)] -- there are 2 different course titles and course Ids in each CSV file
 
 toCourseIntroFlashcard :: Language -> CSVCourseIntroFlashcard a -> CourseIntroFlashcard a
 toCourseIntroFlashcard native fc =
@@ -150,14 +142,19 @@ toChapter chapter = do
     , chapterCards = cs
   }
 
-toCourse :: CSVCourseIntro -> [CSVChapter] -> CSVDataConversion Course
+toCourse :: CSVCourseIntro -> [CSVChapter] -> CSVDataConversion [Course]
 toCourse intro chapters = do
-  intro' <- toCourseIntro intro
+  intros' <- toCourseIntro intro
   chapters' <- mapM toChapter chapters
-  return Course {
-      courseIntro = intro'
-    , courseChapters = chapters'
-  }
+  -- CSV matrix has the content for 2 courses
+  let half = floor $ fromIntegral (length chapters') / 2
+  let (chapters1, chapters2) = splitAt half chapters'
+  return $ map
+    (\ (intro', chapter'') -> Course {
+        courseIntro = intro'
+      , courseChapters = chapter''
+    })
+    (intros' `zip` [chapters1, chapters2])
 
 
 
@@ -168,7 +165,7 @@ duck = do
   csvData <- BL.readFile "./content/en-Table 1.csv"
   let xs = toCourseIntro <$> toCSVCourseIntro csvData
   g <- newStdGen
-  let course = CourseMeta {native = "es", target = "en", courseId = 1, courseKey = "es-en"}
+  let course = CourseMeta {native = "es", target = "en"}
   let c = (\x -> runCSVDataConversion x g course) <$> xs
   write c
   where

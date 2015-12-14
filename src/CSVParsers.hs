@@ -10,6 +10,8 @@ module CSVParsers (
   , CSVCourseIntro (..)
   , CSVCourseIntroFlashcard (..)
   , toCSVCourseIntro
+  , CSVLanguage (..)
+  , CSVCourseMeta (..)
 ) where
 
 import qualified Data.Map as M
@@ -20,7 +22,6 @@ import Data.Csv
 import qualified Data.Vector as V
 import Data.Either
 import Text.Read (readEither)
-
 
 
 -- Course Contetent
@@ -72,18 +73,19 @@ data CSVLanguage = Arabic | English | Spanish | German | French | Russian derivi
 
 data CSVCourseMeta = CSVCourseMeta {
     csvCourseMetaLanguage :: CSVLanguage
-  , csvCourseMetaIds :: [Integer]
-}
+  , csvCourseMetaId1 :: Integer
+  , csvCourseMetaId2 :: Integer
+} deriving Show
 
 type DicOf a = M.Map Language a
 
 data CSVCourseIntro = CSVCourseIntro {
-    csvCourseTitle :: Dic
+    csvCourseTitle1 :: Dic
+  , csvCourseTitle2 :: Dic
   , csvCourseIntroTitle :: Dic
   , csvCourseIntroFC1 :: CSVCourseIntroFlashcard String
   , csvCourseIntroFC2 :: CSVCourseIntroFlashcard [String]
-  , csvCourseIntroLanguage :: CSVLanguage
-  , csvCourseIntroCourseId :: Integer
+  , csvCourseMeta :: CSVCourseMeta
 } deriving Show
 
 data CSVCourseIntroFlashcard a = CSVCourseIntroFlashcard {
@@ -98,24 +100,21 @@ emptyCsvCourseIntroFlashcard = CSVCourseIntroFlashcard {
   , csvCiFcLongAns = M.empty
 }
 
-emptyCsvCourseIntro = CSVCourseIntro {
-    csvCourseTitle = M.empty
-  , csvCourseIntroTitle = M.empty
-  , csvCourseIntroFC1 = emptyCsvCourseIntroFlashcard
-  , csvCourseIntroFC2 = emptyCsvCourseIntroFlashcard
-  , csvCourseIntroLanguage = undefined
-  , csvCourseIntroCourseId = undefined
-}
+toCSVCourseMeta :: String -> Either String CSVCourseMeta
+toCSVCourseMeta col = do
+  (id1, id2, lang) <- readEither col :: Either String (Integer, Integer, CSVLanguage)
+  return CSVCourseMeta {
+      csvCourseMetaLanguage = lang
+    , csvCourseMetaId1 = id1
+    , csvCourseMetaId2 = id2
+  }
 
 
-csvFirstCol :: String -> Either String (Integer, Integer, CSVLanguage)
-csvFirstCol col = readEither col :: Either String (Integer, Integer, CSVLanguage)
-
-
-csvVectorToCourseIntro :: V.Vector [String] -> CSVCourseIntro
-csvVectorToCourseIntro = go emptyCsvCourseIntro where
+csvVectorToCourseIntro :: [String] -> CSVCourseIntro -> V.Vector [String] -> CSVCourseIntro
+csvVectorToCourseIntro = go where
   fieldMap v = M.fromList [
-        ("1-title", \ val -> v {csvCourseTitle = val} ) -- courseTitle
+        ("1-title", \ val -> v {csvCourseTitle1 = val} ) -- courseTitle
+      , ("2-title", \ val -> v {csvCourseTitle2 = val} )
       , ("intro_title", \ val -> v {csvCourseIntroTitle = val})
       , ("intro_fc-1_q", \ val -> updateFC1 $ \ fc -> fc {csvCiFcQuestion = val})
       , ("intro_fc-1_a_short", \ val -> updateFC1 $ \ fc -> fc {csvCiFcShortAns = val})
@@ -135,11 +134,23 @@ csvVectorToCourseIntro = go emptyCsvCourseIntro where
             fc' = f fc
         in
         v { csvCourseIntroFC2 = fc' }
-  go = V.foldl $ \ intro (xs :: [String]) -> do
+  go langs = V.foldl $ \ intro (xs :: [String]) -> do
       let f = M.lookup (xs !! 1) (fieldMap intro)
-      maybe intro ($ M.fromList $ ["en","es","fr","de","ru","ar"] `zip` drop 2 xs) f
+      maybe intro ($ M.fromList $ langs `zip` drop 2 xs) f
 
 
 -- exported
 toCSVCourseIntro :: BL.ByteString -> Either String CSVCourseIntro
-toCSVCourseIntro csvData = csvVectorToCourseIntro <$> decode NoHeader csvData
+toCSVCourseIntro csvData = do
+  vs <- V.drop 1 <$> decode NoHeader csvData
+  meta <- toCSVCourseMeta $ V.head vs !! 1
+  let langs = drop 2 (V.head vs) -- list of langs defined in the CSV
+  let emptyCsvCourseIntro = CSVCourseIntro {
+      csvCourseTitle1 = M.empty
+    , csvCourseTitle2 = M.empty
+    , csvCourseIntroTitle = M.empty
+    , csvCourseIntroFC1 = emptyCsvCourseIntroFlashcard
+    , csvCourseIntroFC2 = emptyCsvCourseIntroFlashcard
+    , csvCourseMeta = meta
+  }
+  return $ csvVectorToCourseIntro langs emptyCsvCourseIntro vs

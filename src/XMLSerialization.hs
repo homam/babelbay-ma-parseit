@@ -42,10 +42,18 @@ textElement name content = Element
   ]
   Nothing
 
+emptyElement :: String -> [(String, String)] -> Element
+emptyElement name attrs = Element
+  (unqual name)
+  (map toAttr attrs)
+  []
+  Nothing
+
+toAttr :: (String, String) -> Attr
+toAttr (name, value) = Attr {attrKey = QName { qName = name, qURI = Nothing, qPrefix = Nothing }, attrVal = value}
+
 addAttr :: (String, String) -> Element -> Element
-addAttr (name, value) elem =
-  let attr = Attr {attrKey = QName { qName = name, qURI = Nothing, qPrefix = Nothing }, attrVal = value}
-  in add_attr attr elem
+addAttr = add_attr . toAttr
 
 
 collElement :: String -> [Element] -> Element
@@ -55,20 +63,23 @@ collElement name children = Element
   (map Elem children)
   Nothing
 
-cFlashcardToXml :: Flashcard -> Element
-cFlashcardToXml card = Element
+flashcardToXml :: Flashcard -> Element
+flashcardToXml card = Element
   (unqual "QAFlashCard")
   []
   [
       Elem $ textElement "FCQuestion" (question card)
     , Elem $ collElement "FCAnswer" [textElement "text" $ answer card]
     , Elem $ collElement "quiz" [elemQuestion (answer card) (quiz card)]
+    , Elem $ emptyElement "image" [("position", "belowShortAnswer"),("source", "http://babelbay-assets.mobileacademy.com/images/" ++ index ++ ".jpg")]
+    , Elem $ emptyElement "audio" [("source", "http://babelbay-assets.mobileacademy.com/audios/" ++ index ++ ".mp3")]
   ]
   Nothing
   where
+    index = show (flashCardIndex card)
+
     elemQuestion :: String -> [String] -> Element
     elemQuestion title options = addAttr ("layout", "text") $ collElement "question" $ textElement "title" title : elemOptions options
-
     elemOptions (correct:wrongs) = addAttr ("correct", "true") (textElement "option" correct) : map (addAttr ("correct", "false") . textElement "option") wrongs
 
 chapterToXml :: Chapter -> Element
@@ -77,9 +88,39 @@ chapterToXml chapter = Element
   [
     Attr {attrKey = QName { qName = "key", qURI = Nothing, qPrefix = Nothing }, attrVal = show $ chapterIndex chapter}
   ]
-  ((Elem $ textElement "title" (chapterTitle chapter)) : map (Elem . cFlashcardToXml) (chapterCards chapter))
+  ((Elem $ textElement "title" (chapterTitle chapter)) : map (Elem . flashcardToXml) (chapterCards chapter))
   Nothing
 
+
+courseIntroFlashcardToXml :: Element -> CourseIntroFlashcard a -> Element
+courseIntroFlashcardToXml long fc = collElement "QAFlashCard" [question, answer] where
+  question = textElement "FCQuestion" (courseIntroFCQuestion fc)
+  answer = collElement "FCAnswer" [short, long]
+  short = addAttr ("type", "text") $ textElement "short" (courseIntroFCShortAnswer fc)
+
+courseIntroFlashcard1AnswerToXml :: CourseIntroFlashcard String -> Element
+courseIntroFlashcard1AnswerToXml fc = courseIntroFlashcardToXml (collElement "long" . return . textElement "text" . courseIntroFCLongAnswer $ fc) fc
+
+courseIntroFlashcard2AnswerToXml :: CourseIntroFlashcard [String] -> Element
+courseIntroFlashcard2AnswerToXml fc = courseIntroFlashcardToXml (collElement "long" . return . collElement "simpleList" . map (textElement "item") . courseIntroFCLongAnswer $ fc) fc
+
+
+
+courseToXml :: String -> Course -> Element
+courseToXml keyPostfix course = let intro = courseIntro course in Element
+  (unqual "BookSummary")
+  []
+  ([
+      Elem $ emptyElement "meta" [
+          ("id", show $ courseId intro)
+        , ("key", "Learn" ++ show (courseLanguage intro) ++ "Language" ++ keyPostfix)
+        , ("viewType", "BabelbayQA")
+      ]
+    , Elem $ textElement "Title" (courseTitle intro)
+    , Elem $ courseIntroFlashcard1AnswerToXml (courseIntroFC1 intro)
+    , Elem $ courseIntroFlashcard2AnswerToXml (courseIntroFC2 intro)
+  ] ++ map (Elem . chapterToXml) (courseChapters course))
+  Nothing
 
 ---
 
@@ -89,10 +130,13 @@ someFunc = do
   csvData <- BL.readFile "./content/en-Table 1.csv"
   let chapters = toCSVChapters file
   let intro = toCSVCourseIntro csvData
-  let course = makeCourseMeta "es" "en" 1 "es-en"
+  let course = makeCourseMeta "es" "en"
   g <- newStdGen
   let c = liftM2 (\x y -> runCSVDataConversion (toCourse x y) g course) intro chapters
   write c
   where
+    write :: Either String ([Course], StdGen) -> IO ()
     write (Left err) = putStrLn err
-    write (Right (c, _)) = putStrLn $ ppcTopElement prettyConfigPP $ collElement "BookSummary" $ map chapterToXml (courseChapters c)
+    write (Right (cs, _)) = mapM_
+      (putStrLn . ppcTopElement prettyConfigPP . uncurry courseToXml)
+      (["", "Two"] `zip` cs)
