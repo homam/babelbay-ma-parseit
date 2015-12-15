@@ -11,6 +11,7 @@ import Text.XML.Light
 import System.Random
 import Control.Monad.Trans
 import Control.Monad.Trans.State
+import Control.Monad.Trans.Except
 import qualified Control.Monad.State as S
 import qualified Control.Monad.Reader as R
 import Lib
@@ -67,13 +68,13 @@ flashcardToXml :: Flashcard -> Element
 flashcardToXml card = Element
   (unqual "QAFlashCard")
   []
-  [
-      Elem $ textElement "FCQuestion" (question card)
-    , Elem $ collElement "FCAnswer" [textElement "text" $ answer card]
-    , Elem $ collElement "quiz" [elemQuestion (answer card) (quiz card)]
-    , Elem $ emptyElement "image" [("position", "belowShortAnswer"),("source", "http://babelbay-assets.mobileacademy.com/images/" ++ index ++ ".jpg")]
-    , Elem $ emptyElement "audio" [("source", "http://babelbay-assets.mobileacademy.com/audios/" ++ index ++ ".mp3")]
-  ]
+  (map Elem [
+      textElement "FCQuestion" (question card)
+    , collElement "FCAnswer" [textElement "text" $ answer card]
+    , collElement "quiz" [elemQuestion (answer card) (quiz card)]
+    , emptyElement "image" [("position", "belowShortAnswer"),("source", "http://babelbay-assets.mobileacademy.com/images/" ++ index ++ ".jpg")]
+    , emptyElement "audio" [("source", "http://babelbay-assets.mobileacademy.com/audios/" ++ audio card ++ ".wav")]
+  ])
   Nothing
   where
     index = show (flashCardIndex card)
@@ -88,7 +89,7 @@ chapterToXml chapter = Element
   [
     Attr {attrKey = QName { qName = "key", qURI = Nothing, qPrefix = Nothing }, attrVal = show $ chapterIndex chapter}
   ]
-  ((Elem $ textElement "title" (chapterTitle chapter)) : map (Elem . flashcardToXml) (chapterCards chapter))
+  (map Elem (textElement "title" (chapterTitle chapter) : map flashcardToXml (chapterCards chapter)))
   Nothing
 
 
@@ -107,36 +108,81 @@ courseIntroFlashcard2AnswerToXml fc = courseIntroFlashcardToXml (collElement "lo
 
 
 courseToXml :: String -> Course -> Element
-courseToXml keyPostfix course = let intro = courseIntro course in Element
+courseToXml key course = let intro = courseIntro course in Element
   (unqual "BookSummary")
   []
-  ([
-      Elem $ emptyElement "meta" [
+  (map Elem $ [
+      emptyElement "meta" [
           ("id", show $ courseId intro)
-        , ("key", "Learn" ++ show (courseLanguage intro) ++ "Language" ++ keyPostfix)
+        , ("key", key)
         , ("viewType", "BabelbayQA")
       ]
-    , Elem $ textElement "Title" (courseTitle intro)
-    , Elem $ courseIntroFlashcard1AnswerToXml (courseIntroFC1 intro)
-    , Elem $ courseIntroFlashcard2AnswerToXml (courseIntroFC2 intro)
-  ] ++ map (Elem . chapterToXml) (courseChapters course))
+    , textElement "Title" (courseTitle intro)
+    , collElement "introduction" [
+        textElement "title" (courseIntroTitle intro)
+      , courseIntroFlashcard1AnswerToXml (courseIntroFC1 intro)
+      , courseIntroFlashcard2AnswerToXml (courseIntroFC2 intro)
+    ]
+  ] ++ map chapterToXml (courseChapters course))
   Nothing
+
+courseKey :: String -> Course -> String
+courseKey keyPostfix course = "Learn" ++ show (courseLanguage $ courseIntro course) ++ "Language" ++ keyPostfix
 
 ---
 
-someFunc :: IO ()
-someFunc = do
-  file <- BL.readFile "./final.csv"
-  csvData <- BL.readFile "./content/en-Table 1.csv"
+data AppConfig = AppConfig CourseMeta deriving Show
+data AppState = AppState StdGen deriving Show
+type App m = ReaderT AppConfig (StateT AppState (ExceptT String m))
+
+runApp :: App m a -> AppConfig -> AppState -> m (Either String (a, AppState))
+-- runApp app config state = runExceptT $ (runStateT $ runReaderT app config) state
+runApp app config = runExceptT . runStateT (runReaderT app config)
+
+app :: App IO ((), AppState)
+app = do
+  (AppConfig meta) <- R.ask
+  (AppState g) <- S.get
+  file <- liftIO $ BL.readFile "./final.csv"
+  csvData <- liftIO $ BL.readFile $ "./content/" ++ target meta ++ "-Table 1.csv"
   let chapters = toCSVChapters file
   let intro = toCSVCourseIntro csvData
-  let course = makeCourseMeta "es" "en"
-  g <- newStdGen
-  let c = liftM2 (\x y -> runCSVDataConversion (toCourse x y) g course) intro chapters
-  write c
-  where
-    write :: Either String ([Course], StdGen) -> IO ()
-    write (Left err) = putStrLn err
-    write (Right (cs, _)) = mapM_
-      (putStrLn . ppcTopElement prettyConfigPP . uncurry courseToXml)
-      (["", "Two"] `zip` cs)
+  let cs = liftM2 (\x y -> runCSVDataConversion (toCourse x y) g meta) intro chapters
+
+  undefined
+
+write :: App IO ((), StdGen)
+write = undefined
+
+
+
+-- liftIO = lift . lift
+
+someFunc :: IO ()
+someFunc = do
+  matrix <- BL.readFile "./final.csv"
+  forM_ ["en","ar","fr","de","ru","es"] $ \ targetLang -> do
+    let meta = makeCourseMeta "es" targetLang
+    csvData <- BL.readFile $ "./content/" ++ target meta ++ "-Table 1.csv"
+    let chapters = toCSVChapters matrix
+    let intro = toCSVCourseIntro csvData
+    g <- newStdGen
+    let cs = liftM2 (\x y -> runCSVDataConversion (toCourse x y) g meta) intro chapters
+    write meta cs
+    where
+      write :: CourseMeta -> Either String ([Course], StdGen) -> IO ()
+      write _ (Left err) = putStrLn err
+      write meta (Right (cs, _)) = mapM_
+        -- (putStrLn . ppcTopElement prettyConfigPP . uncurry courseToXml . mapB courseKey)
+        (uncurry (writeCourse meta) . mapB courseKey)
+        (["", "Two"] `zip` cs)
+
+      writeCourse :: CourseMeta -> String -> Course -> IO ()
+      writeCourse meta key course = do
+        let fileName = key ++ "-" ++ native meta ++ ".xml"
+        writeFile ("/Users/homam/dev/ma/maAssets/" ++ key ++ "/text/" ++ fileName) (ppcTopElement prettyConfigPP (courseToXml key course))
+
+--
+
+mapB :: (a -> b -> c) -> (a, b) -> (c, b)
+mapB f t = (uncurry f t, snd t)

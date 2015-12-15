@@ -1,11 +1,7 @@
 {-# LANGUAGE OverloadedStrings, ScopedTypeVariables, GeneralizedNewtypeDeriving, RankNTypes #-}
 
 module Lib (
-    Flashcard
-  , flashCardIndex
-  , question
-  , answer
-  , quiz
+    Flashcard (..)
   , Chapter
   , chapterIndex
   , chapterTitle
@@ -44,6 +40,7 @@ data Flashcard = Flashcard {
   , question :: String
   , answer :: String
   , quiz :: [String]
+  , audio :: String
 } deriving Show
 
 data Chapter = Chapter {
@@ -101,7 +98,7 @@ toFlashcard questions flashcard = do
       answer = dic M.! native config
       question = dic M.! target config
   quiz <- (question :) . map ((M.! target config) . csvFCDic) . take 3 <$> randomize (filter ((/= index) . csvFCIndex) questions)
-  return Flashcard {flashCardIndex = index, question = question, answer = answer, quiz = quiz}
+  return Flashcard {flashCardIndex = index, question = question, answer = answer, quiz = quiz, audio = target config ++ "/" ++ show index}
 
 toCourseIntro :: CSVCourseIntro -> CSVDataConversion [CourseIntro]
 toCourseIntro intro = do
@@ -117,7 +114,7 @@ toCourseIntro intro = do
       , courseIntroFC1 = toCourseIntroFlashcard nativeLang (csvCourseIntroFC1 intro)
       , courseIntroFC2 = toCourseIntroFlashcard nativeLang (csvCourseIntroFC2 intro)
     })
-    [(csvCourseTitle1, csvCourseMetaId1), (csvCourseTitle2, csvCourseMetaId1)] -- there are 2 different course titles and course Ids in each CSV file
+    [(csvCourseTitle1, csvCourseMetaId1), (csvCourseTitle2, csvCourseMetaId2)] -- there are 2 different course titles and course Ids in each CSV file
 
 toCourseIntroFlashcard :: Language -> CSVCourseIntroFlashcard a -> CourseIntroFlashcard a
 toCourseIntroFlashcard native fc =
