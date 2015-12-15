@@ -12,6 +12,8 @@ import System.Random
 import Control.Monad.Trans
 import Control.Monad.Trans.State
 import Control.Monad.Trans.Except
+import qualified Control.Monad.Except as C
+import qualified Control.Exception.Base as B
 import qualified Control.Monad.State as S
 import qualified Control.Monad.Reader as R
 import Lib
@@ -139,7 +141,7 @@ runApp :: App m a -> AppConfig -> AppState -> m (Either String (a, AppState))
 -- runApp app config state = runExceptT $ (runStateT $ runReaderT app config) state
 runApp app config = runExceptT . runStateT (runReaderT app config)
 
-app :: App IO ((), AppState)
+app :: App IO (IO ())
 app = do
   (AppConfig meta) <- R.ask
   (AppState g) <- S.get
@@ -147,14 +149,38 @@ app = do
   csvData <- liftIO $ BL.readFile $ "./content/" ++ target meta ++ "-Table 1.csv"
   let chapters = toCSVChapters file
   let intro = toCSVCourseIntro csvData
-  let cs = liftM2 (\x y -> runCSVDataConversion (toCourse x y) g meta) intro chapters
+  let ecs = mapSnd AppState <$> liftM2 (\x y -> runCSVDataConversion (toCourse x y) g meta) intro chapters
+  let cs = mapFst (["", "Two"] `zip`) <$> ecs
+  let ios = mapFst (mapM_ (uncurry (writeCourse meta) . mapB courseKey)) <$> cs
+  case ios of
+    (Left err) -> C.throwError "EXCEPTION"
+    (Right tup) -> do
+      S.put (snd tup)
+      return (fst tup)
 
-  undefined
+  -- runApp app (AppConfig $ makeCourseMeta "en" "es") (AppState $ mkStdGen 10) >>= handle
+  -- handle (Left str) = print str
+  -- handle (Right i) = fst i
 
-write :: App IO ((), StdGen)
-write = undefined
 
+  --liftIO $ print cs
+  --return ((), AppState g)
 
+-- write :: App IO ((), StdGen)
+-- write = do
+--   (AppConfig meta) <- R.ask
+--   (AppState g) <- S.get
+
+mapFst :: (a -> b) -> (a, c) -> (b, c)
+mapFst f (x,y) = (f x,y)
+
+mapSnd :: (a -> b) -> (c, a) -> (c, b)
+mapSnd f (x,y) = (x,f y)
+
+-- writeCourse :: CourseMeta -> String -> Course -> IO ()
+writeCourse meta key course = do
+  let fileName = key ++ "-" ++ native meta ++ ".xml"
+  writeFile ("/Users/homam/dev/ma/maAssets/" ++ key ++ "/text/" ++ fileName) (ppcTopElement prettyConfigPP (courseToXml key course))
 
 -- liftIO = lift . lift
 

@@ -143,7 +143,7 @@ csvVectorToCourseIntro = go where
 toCSVCourseIntro :: BL.ByteString -> Either String CSVCourseIntro
 toCSVCourseIntro csvData = do
   vs <- V.drop 1 <$> decode NoHeader csvData
-  meta <- toCSVCourseMeta $ V.head vs !! 1
+  meta <- toCSVCourseMeta $ V.head vs !! 1  -- first cell is a tuple (curseId, courseId, lang :: CSVLanguage)
   let langs = drop 2 (V.head vs) -- list of langs defined in the CSV
   let emptyCsvCourseIntro = CSVCourseIntro {
       csvCourseTitle1 = M.empty
