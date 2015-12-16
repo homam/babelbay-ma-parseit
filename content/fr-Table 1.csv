@@ -1,14 +1,26 @@
 ,,,,,,,
 ,"(210, 222, French)",en,es,fr,de,ru,ar
-,1-title,,Vocabulario francés 1,,,,
-,2-title,,Vocabulario francés 2,,,,
-,intro_title,About this course,Sobre este curso,,,,
-,intro_fc-1_q,What is this course about?,¿En qué consiste este curso?,,Um was geht es bei dem Kurs?,О чем этот курс?,حول ماذا يتمحور هذا البرنامج التعليمي؟
-,intro_fc-1_a_short,,Francés para principiantes,,,,
-,intro_fc-1_a_long,,"“Bonjour” y “Bon Appétit!” Si esas son las únicas palabras que conoces y te gustaría profundizar tus conocimientos del idioma del amor, entonces este es tu curso. Aquí podrás desarrollar tu vocabulario y hacer que un viaje a Francia o cualquier otro país de habla francesa sea inolvidable. ¡Selecciona tu lengua materna en la página de inicio y “voilà”, estarás preparado para aprender un nuevo idioma “Bon voyage”!",,,,
-,intro_fc-2_q,Who shoud do this course?,¿A quién se dirige este curso?,,Wer sollte diesen Kurs absolvieren?,Кому может быть интересен данный курс?,من يجب أن يأخذ هذا البرنامج التعليمي؟
-,intro_fc-2_a_short,,Personas interesadas en aprender las bases del francés,,,,
-,intro_fc-2_a_long,,"* Aquellos que estén interesados en la cultura francesa, gastronomía e historia * Personas que viajen a Francia o cualquier otro país francófono * Aquellos que quieran aumentar sus oportunidades laborales",,,,
+,1-title,French Vocabulary 1,Vocabulario francés 1,Vocabulaire français 1,Französische Vokabeln 1,Французский словарный запас 1,مفردات اللغة الفرنسية ١
+,2-title,French Vocabulary 2,Vocabulario francés 2,Vocabulaire français 2,Französische Vokabeln 2,Французский словарный запас 2,مفردات اللغة الفرنسية ٢
+,intro_title,About this course,Sobre este curso,À propos de ce cours,"Über diesen Kurs
+",О курсе,حول هذه الدورة
+,intro_fc-1_q,What is this course about?,¿En qué consiste este curso?,"Sur quoi porte ce cours ?
+",Um was geht es bei dem Kurs?,О чем этот курс?,ماذا تقدم هذه الدورة؟
+,intro_fc-1_a_short,French for beginners,Francés para principiantes,"Le français pour débutants
+","Französisch für Anfänger
+",Французский для начинающих,"اللغة الفرنسية للمبتدئين
+"
+,intro_fc-1_a_long,"“Bonjour” and “Bon Appétit!” If those are the only French words you know, and you’d like to learn more about the language of love, then this course is for you. Here you’ll be able to develop your vocabulary and make your journey to France or any other French-speaking country much more memorable! Simply select your native language on the homepage, and “voilà”, you are ready to learn a new language. “Bon voyage!”","“Bonjour” y “Bon Appétit!” Si esas son las únicas palabras que conoces y te gustaría profundizar tus conocimientos del idioma del amor, entonces este es tu curso. Aquí podrás desarrollar tu vocabulario y hacer que un viaje a Francia o cualquier otro país de habla francesa sea inolvidable. ¡Selecciona tu lengua materna en la página de inicio y “voilà”, estarás preparado para aprender un nuevo idioma “Bon voyage”!","« Bonjour » et « Bon Appétit ! » Si ce sont là les seuls mots français que vous connaissez et que vous aimeriez approfondir votre connaissance de la langue de l'Amour, alors ce cours est fait pour vous. Ici, vous pourrez développer votre vocabulaire et rendre votre séjour en France ou dans n'importe quel autre pays francophone plus mémorable encore ! Il vous suffit de sélectionner votre langue maternelle sur la page d'accueil, et voilà, vous voilà fin prêt pour apprendre une nouvelle langue. « Bon voyage ! »
+","„Bonjour“ und „Bon Appétit!“ Wenn dies die einzigen französischen Wörter sind, die Sie kennen und Sie gerne mehr über die Sprache der Liebe lernen möchten, ist dieser Kurs genau richtig für Sie. Hier können Sie Ihren Vokabelschatz aufbauen und Ihre Reise nach Frankreich oder in irgendein anderes französischsprachiges Land viel denkwürdiger werden lassen! Wählen Sie einfach Ihre Muttersprache auf der Startseite aus und „voilà“, Sie sind bereit zum Erlernen einer neuen Sprache. „Bon voyage!“
+","«Bonjour» и «Bon Appétit!» Если это единственные французские слова, которые вы знаете, и вы хотите лучше изучить язык любви, то этот курс – для вас. С ним вы сможете расширить свой словарный запас и сделать свое путешествие во Францию или любую другую франкоговорящую страну намного более запоминающимся. Просто выберите свой родной язык на главной странице и «voilà» – теперь вы готовы учить новый язык. «Bon voyage!»","""Bonjour"" و ""Bon Appétit!"" وإذا كانت تلك هي الكلمات الفرنسية الوحيدة التي تعرفها، وكنت ترغب في معرفة المزيد عن لغة الحب، فهذه هي الدورة المناسبة لك. هنا ستكون قادراً على تطوير مفرداتك وجعل رحلتك إلى فرنسا أو أي بلد آخر ناطق بالفرنسية رحلة لا تنسى! ببساطة اختر لغتك الأم على الصفحة الرئيسية، و ""voilà""، أنت على استعداد لتعلم لغة جديدة ""Bon voyage!"".
+"
+,intro_fc-2_q,Who should do this course?,¿A quién se dirige este curso?,"À qui s'adresse ce cours ?
+",Wer sollte diesen Kurs absolvieren?,Кому может быть интересен данный курс?,من الذي عليه أن يدرس هذه الدورة؟
+,intro_fc-2_a_short,Anyone interested in learning the basics of French,Personas interesadas en aprender las bases del francés,Toute personne souhaitant apprendre les bases du français,"
+Jeder mit einem Interesse an den Grundlagen der französischen Sprache
+","Всем, кто хочет изучить основы французского",كل من يهتم بتعلم أساسيات الفرنسية
+,intro_fc-2_a_long,"*Those interested in French culture, food and history *Travellers to France or any other French speaking country *Those interested in widely increasing their job prospects","* Aquellos que estén interesados en la cultura francesa, gastronomía e historia * Personas que viajen a Francia o cualquier otro país francófono * Aquellos que quieran aumentar sus oportunidades laborales","*Ceux qui s'intéressent à la culture, la gastronomie et l'histoire de France * Les personnes voyageant en France ou dans n'importe quel autre pays francophone * Ceux qui cherchent à élargir leur horizon professionnel","*Personen mit einem Interesse an französischer Kultur, Küche und Geschichte.  *Reisende nach Frankreich oder in irgendein anderes französischsprachiges Land  *Personen mit einem Interesse, Ihre Aussichten auf dem Arbeitsmarkt erheblich zu verbessern
+","*Интересующимся культурой, кухней и историей Франции  *Путешествующим во Францию или в любую другую франкоговорящую страну  *Заинтересованным в значительном расширении карьерных возможностей",* المهتمين بالثقافة الفرنسية والغذاء الفرنسي والتاريخ الفرنسي * المسافرون إلى فرنسا أو أي بلد آخر ناطق بالفرنسية * الراغبين في زيادة فرص حصولهم على العمل على نطاق واسع
 ,,,,,,,
 ,,,,,,,
 ,,,,,,,

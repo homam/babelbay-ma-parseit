@@ -72,7 +72,7 @@ flashcardToXml card = Element
   []
   (map Elem [
       textElement "FCQuestion" (question card)
-    , collElement "FCAnswer" [textElement "text" $ answer card]
+    , collElement "FCAnswer" [textElement "short" $ answer card]
     , collElement "quiz" [elemQuestion (answer card) (quiz card)]
     , emptyElement "image" [("position", "belowShortAnswer"),("source", "http://babelbay-assets.mobileacademy.com/images/" ++ index ++ ".jpg")]
     , emptyElement "audio" [("source", "http://babelbay-assets.mobileacademy.com/audios/" ++ audio card ++ ".wav")]
@@ -145,7 +145,7 @@ app :: App IO (IO ())
 app = do
   (AppConfig meta) <- R.ask
   (AppState g) <- S.get
-  file <- liftIO $ BL.readFile "./final.csv"
+  file <- liftIO $ BL.readFile "./final3.csv"
   csvData <- liftIO $ BL.readFile $ "./content/" ++ target meta ++ "-Table 1.csv"
   let chapters = toCSVChapters file
   let intro = toCSVCourseIntro csvData
@@ -153,7 +153,9 @@ app = do
   let cs = mapFst (["", "Two"] `zip`) <$> ecs
   let ios = mapFst (mapM_ (uncurry (writeCourse meta) . mapB courseKey)) <$> cs
   case ios of
-    (Left err) -> C.throwError "EXCEPTION"
+    (Left err) -> do
+      liftIO $ print "error"
+      C.throwError "EXCEPTION"
     (Right tup) -> do
       S.put (snd tup)
       return (fst tup)
