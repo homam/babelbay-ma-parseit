@@ -164,6 +164,9 @@ app = do
   -- handle (Left str) = print str
   -- handle (Right i) = fst i
 
+-- Control.Exception
+-- r <- try (readFile "./hello" >>= print )::IO (Either SomeException ())
+
 
   --liftIO $ print cs
   --return ((), AppState g)
@@ -190,7 +193,7 @@ someFunc :: IO ()
 someFunc = do
   matrix <- BL.readFile "./final.csv"
   forM_ ["en","ar","fr","de","ru","es"] $ \ targetLang -> do
-    let meta = makeCourseMeta "es" targetLang
+    let meta = makeCourseMeta "en" targetLang
     csvData <- BL.readFile $ "./content/" ++ target meta ++ "-Table 1.csv"
     let chapters = toCSVChapters matrix
     let intro = toCSVCourseIntro csvData

@@ -162,7 +162,7 @@ duck = do
   csvData <- BL.readFile "./content/en-Table 1.csv"
   let xs = toCourseIntro <$> toCSVCourseIntro csvData
   g <- newStdGen
-  let course = CourseMeta {native = "es", target = "en"}
+  let course = CourseMeta {native = "en", target = "ar"}
   let c = (\x -> runCSVDataConversion x g course) <$> xs
   write c
   where
